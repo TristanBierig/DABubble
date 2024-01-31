@@ -1,0 +1,87 @@
+<div class="main" [class.view__desktop-main]="rs.isDesktop$ | async">
+  <app-header-mobile
+    *ngIf="!(rs.isDesktop$ | async)"
+    [parent]="'chat'"
+  ></app-header-mobile>
+
+  <app-chat-sub-header
+    [type]="'thread'"
+    [channel]="currentChannel"
+  ></app-chat-sub-header>
+
+  <main #chatContainer [scrollTop]="chatContainer.scrollHeight">
+    <!-- Just fix leadingMsg -->
+    <div *ngIf="leadingMsg" class="message__wrapper">
+      <div class="message leading-msg">
+        <div class="message__avatar-container">
+          <img src="{{ leadingMsg.sentByPhotoUrl }}" alt="" />
+        </div>
+
+        <div class="message__content-container">
+          <div class="message__header">
+            <span class="message__header-name">{{
+              leadingMsg.sentByName
+            }}</span>
+            <span *ngIf="leadingMsg.sentAt" class="message__header-time"
+              >{{ leadingMsg.sentAt.toDate() | date : "shortTime" }} Uhr</span
+            >
+          </div>
+          <div class="message__content-wrapper">
+            <!-- Optional and just needed when there is a file present -->
+            <div
+              *ngIf="
+                leadingMsg.file.url &&
+                  leadingMsg.file.type !== 'application/pdf';
+                then isPicture;
+                else isPDF
+              "
+            ></div>
+            <ng-template #isPicture>
+              <img
+                (click)="loadFile(leadingMsg.file.url)"
+                [src]="leadingMsg.file.url"
+                alt="Picture send from a user"
+              />
+            </ng-template>
+            <ng-template #isPDF>
+              <div
+                class="message__file-wrapper-pdf"
+                *ngIf="leadingMsg.file.type"
+              >
+                <img
+                  (click)="loadFile(leadingMsg.file.url)"
+                  src="assets/img/pdf.png"
+                  alt="Logo of PDF"
+                />
+                <span>{{ leadingMsg.file.name }}</span>
+              </div>
+            </ng-template>
+            <!-- Text message itself -->
+            <p>
+              {{ leadingMsg.message }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Thread meta data -->
+      <div class="thread__separator-container">
+        <span *ngIf="leadingMsg.thread.length > 0"
+          >{{ leadingMsg.thread.length }} Antworten</span
+        >
+        <div class="thread__separator-line"></div>
+      </div>
+    </div>
+    <!-- Actual chatRecord for the thread -->
+    <app-chat-record
+      [parentType]="'thread'"
+      [chatRecordId]="chatRecordId"
+      [currentUser]="currentUser"
+    ></app-chat-record>
+  </main>
+
+  <app-message-input
+    *ngIf="chatRecordId"
+    [currentChatRecordId]="chatRecordId"
+    [parentChat]="'thread'"
+  ></app-message-input>
+</div>

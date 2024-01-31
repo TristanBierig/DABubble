@@ -1,0 +1,53 @@
+<!-- Header for sidenav -->
+<header
+  *ngIf="(parent === 'navbar' || 'main') && (rs.isDesktop$ | async)"
+  [class.desktop]="rs.isDesktop$ | async"
+>
+  <img src="assets/img/logo-text.png" alt="Logo_DABubble" />
+
+  <app-navbar-searchbar *ngIf="rs.isDesktop$ | async"></app-navbar-searchbar>
+
+  <div (click)="openMenu()" class="header__profil">
+    <h1 *ngIf="currentUser && (rs.isDesktop$ | async)">
+      {{ currentUser.name }}
+    </h1>
+
+    <img
+      *ngIf="currentUser"
+      class="avatar-small"
+      src="{{ currentUser.photoUrl }}"
+      alt="avatar"
+      referrerpolicy="no-referrer"
+    />
+
+    <mat-icon *ngIf="rs.isDesktop$ | async">keyboard_arrow_down</mat-icon>
+  </div>
+</header>
+
+<!-- Header for channels, threads and private chats -->
+<header *ngIf="parent === 'chat' && !(rs.isDesktop$ | async)">
+  <div (click)="navigateBack()" class="logo__container">
+    <mat-icon>keyboard_arrow_left</mat-icon>
+    <img src="assets/img/workspace.png" alt="Logo of the current workspace" />
+    <span>Code learning</span>
+  </div>
+  <img
+    (click)="openMenu()"
+    *ngIf="currentUser"
+    class="avatar-small"
+    src="{{ currentUser.photoUrl }}"
+    alt="avatar"
+  />
+</header>
+
+<!-- Header for mobile navbar -->
+<header *ngIf="parent === 'navbar' && !(rs.isDesktop$ | async)">
+  <img src="assets/img/logo_dabubble-mobile.png" alt="Logo_DABubble" />
+  <img
+    (click)="openMenu()"
+    *ngIf="currentUser"
+    class="avatar-small"
+    src="{{ currentUser.photoUrl }}"
+    alt="avatar"
+  />
+</header>

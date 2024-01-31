@@ -1,0 +1,187 @@
+<div class="dialog__container">
+  <!-- Header -->
+  <div class="dialog__header">
+    <span># {{ channel.name }}</span>
+    <mat-icon (click)="closeDialog()">close</mat-icon>
+  </div>
+
+  <!-- Name box -->
+  <div class="box-container" [ngClass]="{ 'open-edit': editNameIsOpen }">
+    <div class="box-header">
+      <span>Channel-Name</span>
+
+      <!-- Toggle edit/non-edit and also mobile/ non-mobile Mode -->
+      <ng-container
+        [ngTemplateOutlet]="
+          editNameIsOpen && (rs.isMobile$ | async)
+            ? closeNameEditMobile
+            : editNameIsOpen
+            ? closeNameEdit
+            : !editNameIsOpen && (rs.isMobile$ | async)
+            ? openNameEditMobile
+            : openNameEdit
+        "
+      ></ng-container>
+
+      <ng-template #closeNameEdit>
+        <span (click)="saveName()" class="purple-text">Speichern</span>
+      </ng-template>
+      <ng-template #openNameEdit>
+        <span (click)="toggleEditName()" class="purple-text">Bearbeiten</span>
+      </ng-template>
+
+      <ng-template #closeNameEditMobile>
+        <span (click)="saveName()" class="purple-text">
+          <mat-icon class="edit__btn-mobile" fontSet="material-icons-outlined"
+            >check_circle</mat-icon
+          >
+        </span>
+      </ng-template>
+      <ng-template #openNameEditMobile>
+        <span (click)="toggleEditName()" class="purple-text">
+          <mat-icon class="edit__btn-mobile" fontSet="material-icons-outlined"
+            >edit</mat-icon
+          >
+        </span>
+      </ng-template>
+    </div>
+
+    <!-- Edit Field -->
+    <ng-container
+      [ngTemplateOutlet]="editNameIsOpen ? editNameTemp : nameTemp"
+    ></ng-container>
+    <ng-template #editNameTemp>
+      <div class="name__input-wrapper">
+        <span>#</span>
+        <input
+          customAutofocus
+          [(ngModel)]="channel.name"
+          name="nameEdit"
+          class="edit__input"
+        />
+      </div>
+    </ng-template>
+    <ng-template #nameTemp>
+      <div># {{ channel.name }}</div>
+    </ng-template>
+  </div>
+
+  <!-- Description Box -->
+  <div class="box-container" [ngClass]="{ 'open-edit': editDescriptionIsOpen }">
+    <div class="box-wrapper">
+      <div class="box-header">
+        <span>Beschreibung</span>
+        <ng-container
+          [ngTemplateOutlet]="
+            editDescriptionIsOpen && (rs.isMobile$ | async)
+              ? closeDescriptionEditMobile
+              : editDescriptionIsOpen
+              ? closeDescriptionEdit
+              : !editDescriptionIsOpen && (rs.isMobile$ | async)
+              ? openDescriptionEditMobile
+              : openDescriptionEdit
+          "
+        ></ng-container>
+        <ng-template #closeDescriptionEdit>
+          <span (click)="saveDescription()" class="purple-text">Speichern</span>
+        </ng-template>
+        <ng-template #openDescriptionEdit>
+          <span (click)="toggleEditDescription()" class="purple-text"
+            >Bearbeiten</span
+          >
+        </ng-template>
+        <ng-template #closeDescriptionEditMobile>
+          <span (click)="saveDescription()" class="purple-text">
+            <mat-icon class="edit__btn-mobile" fontSet="material-icons-outlined"
+              >check_circle</mat-icon
+            >
+          </span>
+        </ng-template>
+        <ng-template #openDescriptionEditMobile>
+          <span (click)="toggleEditDescription()" class="purple-text">
+            <mat-icon class="edit__btn-mobile" fontSet="material-icons-outlined"
+              >edit</mat-icon
+            >
+          </span>
+        </ng-template>
+      </div>
+
+      <ng-container
+        [ngTemplateOutlet]="
+          editDescriptionIsOpen
+            ? openDesEdit
+            : channel.description
+            ? description
+            : placeholder
+        "
+      ></ng-container>
+
+      <ng-template #openDesEdit>
+        <input
+          customAutofocus
+          [(ngModel)]="channel.description"
+          name="descriptionEdit"
+          class="edit__input"
+        />
+      </ng-template>
+
+      <ng-template #description>
+        <span class="description__content">{{ channel.description }}</span>
+      </ng-template>
+      <ng-template #placeholder>
+        <i class="description__placeholder"
+          >"Noch keine Beschreibung vorhanden!"</i
+        >
+      </ng-template>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div class="box-wrapper">
+      <div class="box-header">
+        <span>Erstellt von</span>
+      </div>
+      <span *ngIf="createdBy" class="created-by purple-text">{{
+        createdBy.name
+      }}</span>
+    </div>
+  </div>
+
+  <!-- Member for mobile -->
+  <div *ngIf="rs.isMobile$ | async" class="mobile__member-container">
+    <div class="dialog__headline-container">
+      <h2 class="dialog__headline">Mitglieder</h2>
+    </div>
+
+    <div class="dialog__member-container mobile__member-wrapper">
+      <div
+        *ngFor="let member of fireService.channelMemberSubject | async"
+        class="dialog__member-wrapper"
+      >
+        <app-avatar-display
+          [data]="{ user: member, showStatus: true, size: 'small' }"
+        ></app-avatar-display>
+        <p>{{ member.name }}</p>
+      </div>
+    </div>
+
+    <div class="dialog__add-member__container">
+      <div (click)="openAddMemberDialog()" class="dialog__add-member__wrapper">
+        <mat-icon fontSet="material-icons-outlined">person_add</mat-icon>
+        <p>Mitglieder hinzufügen</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Btn -->
+  <div class="action-btn-container">
+    <span
+      (click)="
+        searchService.deleteUserFromChannel(fireService.currentUser, channel);
+        closeDialog();
+        router.navigate(['**'])
+      "
+      class="text-btn-flat"
+      >Channel verlassen</span
+    >
+  </div>
+</div>

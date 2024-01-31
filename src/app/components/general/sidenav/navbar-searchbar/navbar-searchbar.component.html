@@ -1,0 +1,81 @@
+<main>
+  <div class="searchbar">
+    <input
+      #searchbarNavbar
+      (keyup)="searchFor()"
+      name="searchbar"
+      [(ngModel)]="searchterm"
+      type="text"
+      placeholder="Suche nach..."
+    />
+
+    <label for="searchbar">
+      <span class="material-icons-outlined"> search </span>
+    </label>
+  </div>
+
+  <div class="container__result" *ngIf="searchbarActive">
+    <!--
+            result container
+         -->
+    <span class="container__result--empty"
+      >Suche mit '@' nach Leuten und mit '#' nach einem Channel.</span
+    >
+    <div
+      class="container__result--close"
+      (click)="searchbarActive = false; searchterm = ''"
+    >
+      <mat-icon>close</mat-icon>
+    </div>
+
+    <div class="container__result--section">
+      <span class="container__result--section-header">Channel:</span>
+
+      <span
+        *ngIf="searchCacheChannel.length == 0"
+        class="container__result--empty"
+        >Keine Einträge gefunden</span
+      >
+
+      <!--
+                render result channel
+            -->
+      <div *ngFor="let channel of searchCacheChannel">
+        <div class="container__Elements--row" (click)="navigateToChannel(channel.id)">
+          <span>#{{ channel.name }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container__result--section">
+      <span class="container__result--section-header">Mitglieder:</span>
+
+      <span *ngIf="searchCacheUser.length == 0" class="container__result--empty"
+        >Keine Einträge gefunden</span
+      >
+
+      <!--
+                   render result user
+               -->
+      <div *ngFor="let user of searchCacheUser">
+        <div class="container__Elements--row" (click)="navigateToUser(user)">
+          <div class="user__container--avatar">
+            <img
+              class="user__container--avatar-icon"
+              src="{{ user.photoUrl }}"
+              alt="avatar"
+            />
+            <span
+              class="onlinestatus onlinestatus--color-{{ user.onlineStatus }}"
+            ></span>
+          </div>
+
+          <p>
+            {{ user.name }}
+            <span *ngIf="user.id == currentUser.id">(Du)</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

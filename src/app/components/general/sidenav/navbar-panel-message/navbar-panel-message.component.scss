@@ -1,0 +1,111 @@
+.panel__titel--left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+.panel__header--titel {
+  font-size: 1rem;
+  font-weight: 700;
+}
+.container__elements--column {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  font-weight: 400;
+}
+.container__element--spacebetween {
+  justify-content: space-between;
+}
+
+.container__element--center {
+  gap: 4px !important;
+}
+.sort__elemts--row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.element--blue {
+  color: #535af1;
+}
+.fix--space-left {
+  margin-left: calc(0.5rem);
+}
+.user__container--avatar {
+  height: 50px;
+  width: 50px;
+  position: relative;
+  .onlinestatus {
+    height: 14px;
+    width: 14px;
+
+    border: 2px solid var(--color-white);
+    border-radius: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    &--color-false {
+      background-color: var(--color-grey-primary-disable);
+    }
+    &--color-true {
+      background-color: var(--color-green);
+    }
+  }
+}
+.container__Elemets--row{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.cursor__add{
+  cursor: pointer;
+}
+.container--small{
+  width: var(--sice-avatar-message);
+  height: var(--sice-avatar-message);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.circle__add--bg{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
+  background-color: var(--color-blue-bg);
+  border-radius: 20px;
+}
+
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+animation
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+.rotate {
+  transform: rotate(-90deg);
+}
+
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+material design
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+.mat-expansion-panel-header {
+  padding: 0 1rem 0 24px;
+}
+.mat-expansion-panel-header-title {
+  margin-right: unset;
+}
+.mat-expansion-panel__content {
+  margin-left: 24px;
+  display: flex;
+}
+.mat-expansion-panel:not([class*="mat-elevation-z"]) {
+  box-shadow: unset;
+}
+p {
+  margin: 0 0 0;
+}

@@ -1,0 +1,52 @@
+@import 'src/app/style/_chat.scss';
+
+.main {
+    display: flex;
+    flex-direction: column;
+    height: 100svh;
+    background-color: var(--color-white);
+}
+
+.placeholder__container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    height: 100%;
+    padding: 16px;
+    justify-content: flex-end;
+}
+
+.placeholder__title-wrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.placeholder__title--name {
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.placeholder__description {
+    font-size: 20px;
+    color: var(--color-grey-primary-disable);
+}
+
+.placeholder__description--highlight {
+    color: var(--color-blue-secondary-hover);
+    white-space: nowrap;
+}
+
+app-avatar-display {
+    margin-bottom: -20px;
+}
+
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+responsive
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+.view__desktop-main {
+    margin: 1rem;
+    border-radius: 30px;
+    height: calc(100svh - 80px - 2rem);
+}

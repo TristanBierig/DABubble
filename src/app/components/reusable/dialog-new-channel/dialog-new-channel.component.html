@@ -1,0 +1,182 @@
+<div
+class="overlay"
+(click)="closeDialogNewChannel()"
+*ngIf="dialogService.showDialogNewChannel$ | async"
+></div>
+
+<div 
+[class.dialog__hide]="!(dialogService.showDialogNewChannel$ | async) && (rs.isDesktop$ | async)"
+[class.dialog__desktop]="(dialogService.showDialogNewChannel$ | async) && (rs.isDesktop$ | async)"
+[class.dialog__mobile]="((rs.isMobile$ | async) || (rs.isTablet$ | async))"
+[class.slide--up]="(dialogService.showDialogNewChannel$ | async) && ((rs.isMobile$ | async) || (rs.isTablet$ | async))"
+[class.slide--down]="showCloseAnimation && !(dialogService.showDialogNewChannel$ | async) && ((rs.isMobile$ | async) || (rs.isTablet$ | async))"
+>
+	<!-- 
+		mobile dialog bar
+	 -->
+  	<div 
+  	class="orientation" 
+  	(click)="closeDialogNewChannel()" 
+  	*ngIf="rs.isMobile$ | async"
+  	>
+    	<div>
+    	  	<span></span>
+    	</div>
+  	</div>
+
+	<!-- 
+		dialog header
+	 -->
+  	<div class="container__header">
+  	  	<span>Leute hinzufügen</span>
+
+  		<span 
+  		(click)="closeDialogNewChannel()" 
+  		class="material-icons-outlined close__element"
+  		*ngIf="(rs.isDesktop$ | async)"
+  		>close</span>
+  	</div>
+
+  	<div class="radio-form">
+		<!-- 
+			option add all user
+		-->
+    	<div class="container__input">
+    		<input
+    		id="radioAllUser"
+    		name="addOption"
+    		type="radio"
+    		value="all"
+    		(click)="hideUserSearchbarNewChannel()"
+    		checked
+    		/>
+
+    	  	<label for="radioAllUser"
+    	    >Alle Mitglieder von
+    	    	<span>OfficeTeam</span>
+    	    hinzufügen
+    	  	</label>
+    	</div>
+
+		<!-- 
+			option select user
+		-->
+    	<div class="container__elements">
+      		<div class="container__input">
+        		<input
+          		id="radioSingleUser"
+          		name="addOption"
+          		type="radio"
+          		value="single"
+          		(click)="showUserSearchbarNewChannel()"
+        		/>
+
+        		<label 
+				for="radioSingleUser"
+				>Bestimmte Leute hinzufügen</label>
+      		</div>
+
+      		<form [formGroup]="searchUserForm">
+        		<div 
+				id="new-channel-search-user" 
+				class="container__search hide"
+				>
+          			<input
+            		id="searchbar-user"
+            		(keyup)="searchForUser()"
+            		formControlName="searchInputForm"
+            		type="text"
+            		placeholder="Enter Name"
+          			/>
+
+					<!-- 
+						error msg
+					 -->
+          			<label
+          			*ngIf="this.alreadyFiltered"
+          			for="searchbar-user"
+          			class="block__alert"
+          			>*Person ist bereits in deiner Liste</label>
+
+          			<div
+          			class="block__alert"
+          			*ngIf="searchInputForm?.invalid &&(searchInputForm?.dirty || searchInputForm?.touched)"
+          			>
+            			<div *ngIf="searchInputForm?.errors?.['minlength']">
+            				*Bitte min. 2 Zeichen eingeben.
+            			</div>
+          			</div>
+
+          			<!-- 
+						render filtered User 
+					-->
+          			<div
+          			id="filtered-user"
+          			class="container__filteredUser"
+          			*ngIf="this.filteredUser.length >= 1"
+          			>
+          				<div
+          				*ngFor="let user of this.filteredUser"
+          				class="container__user-Elements"
+          				(click)="addFilteredUser(user)"
+          				>
+          			    	<div class="container__user-Elements--avatar">
+          			      		<img
+          			        	class="avatar-small"
+          			        	src="{{ user.photoUrl }}"
+          			        	alt="avatar"/>
+
+          			      		<span
+          			        	class="onlinestatus onlinestatus--color-{{
+          			          	user.onlineStatus}}"
+								></span>
+          			    	</div>
+					
+          			    	<p>{{ user.name }}</p>
+          			  	</div>
+          			</div>
+
+         			<!-- 
+						render added User 
+					-->
+          			<div class="container__user">
+          			  	<div
+          				id="added-user"
+          				class="container__user-Elements"
+          				*ngFor="let user of this.firestoreService.usersAsMemberChache"
+          			  	>
+          			    	<div
+          			    	*ngIf="user != this.currentUser"
+          			    	class="container__user-Elements--avatar"
+          			    	>
+          			      		<img
+          			      		class="avatar-small"
+          			      		src="{{ user.photoUrl }}"
+          			      		alt="avatar"/>
+          			      
+								<span
+          			        	class="onlinestatus onlinestatus--color-{{
+          			          	user.onlineStatus
+          			        	}}"></span>
+          			    	</div>
+
+          			    	<p *ngIf="user != this.currentUser">{{ user.name }}</p>
+							
+          			    	<span
+          			    	class="material-icons-outlined close__element"
+          			    	(click)="removeUser(user)"
+          			    	*ngIf="user != this.currentUser"
+          			    	>close</span>
+          				</div>
+          			</div>
+        		</div>
+      		</form>
+    	</div>
+
+    	<div class="container__btn--right">
+    		<button 
+			(click)="createChannel()" 
+			class="btn__log-in">Erstellen</button>
+    	</div>
+  	</div>
+</div>

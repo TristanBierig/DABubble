@@ -1,0 +1,61 @@
+<div class="block__sign-up">
+  <img class="img-after-intro" src="assets/img/logo-text.png">
+
+  <mat-card *ngIf="!this.authService.isLoggedInForMerging">
+    <mat-card-content>
+      <form class="example-form" [formGroup]="signInForm">
+        <span class="sign-in__headline">Accounts verbinden</span>
+      <span class="sign-in__info-text">Wir haben festgestellt, dass für<p class="email">{{ this.firestoreService.currentUserData.email }}</p>
+        bereits ein DABubble Konto existiert. Da du dich nun auch mit Google anmelden möchtest, werden wir dein bisheriges Konto mit
+        deinem Google Konto verbinden. Melde dich dafür bitte zunächst mit deinen regulären Anmeldedaten und anschließend mit deinem
+        Google Konto an. Zukünftig kannst du beide Anmeldemethoden verwenden. </span>
+
+      <div class="block__input">
+        <mat-icon class="material-icons-outlined mail-icon">person</mat-icon>
+        <input value="{{ this.firestoreService.currentUserData.name }}" disabled placeholder="Name und Nachname" #userName>
+      </div>
+
+      <div class="block__input">
+        <mat-icon class="material-icons-outlined mail-icon">mail</mat-icon>
+        <input type="email" value="{{ this.firestoreService.currentUserData.email }}" disabled placeholder="beispielname@email.com" #userEmail>
+      </div>
+
+      <div class="block__input-password">
+        <div class="block__input">
+          <mat-icon class="material-icons-outlined mail-icon" [class.icon-color-black]="passwordForm?.dirty || passwordForm?.touched">lock</mat-icon>
+          <input formControlName="passwordForm" type="password" placeholder="Passwort" #userPassword>
+        </div>
+        <div class="block__alert-password" *ngIf="passwordForm?.invalid && (passwordForm?.dirty || passwordForm?.touched)">
+          <div *ngIf="passwordForm?.errors?.['required']">*Bitte gib ein Passwort ein.</div>
+        </div>
+      </div>
+
+      <span class="sign-in__forgot-password" routerLink="/forgot-password">Passwort vergessen?</span>
+
+      <div class="block__btn-box">
+        <button
+        class="btn__log-in"
+        (click)="this.prepareSignUp(userName.value, userEmail.value, userPassword.value, 'merge-accounts')"
+        [disabled]="signInForm.invalid || this.authService.signUpSuccessfully"
+        [class.btn-disabled]="signInForm.invalid || this.authService.signUpSuccessfully"
+        >Anmelden & weiter zum Google Log-in</button>
+      </div>
+
+      <div class="block__error" *ngIf="this.authService.logInError">
+        *Log-in Daten sind unvollständig oder stimmen nicht überein.
+      </div>
+    </form>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="change-height" *ngIf="this.authService.isLoggedInForMerging">
+    <span class="sign-in__headline">Accounts verbinden</span>
+    <span class="sign-in__info-text">Melde dich nun mit deinem Google Konto an, damit der Vorgang erfolgreich abgeschlossen werden kann.
+      <b class="email">Wichtig:</b> Verwende bitte die selbe E-Mail-Adresse, die du auch für dein bisheriges DABubble Konto verwendet hast
+      <b class="email">({{ this.firestoreService.currentUserData.email }})</b>.</span>
+    <div class="block__google-log-in" (click)="prepareAccountLinking()">
+      <img src="assets/img/google-icon.png">
+      <span>Mit Google anmelden & Accounts verbinden</span>
+    </div>
+  </mat-card>
+</div>

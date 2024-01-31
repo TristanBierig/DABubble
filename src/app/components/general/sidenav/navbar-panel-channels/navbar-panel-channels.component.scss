@@ -1,0 +1,88 @@
+.panel__titel--left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+.panel__header--titel {
+  font-size: 1rem;
+  font-weight: 700;
+}
+.container__elements--column {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  font-weight: 400;
+}
+.container__element--spacebetween {
+  justify-content: space-between;
+}
+.container__element--center {
+  gap: 4px !important;
+}
+.sort__elemts--row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.element--blue {
+  color: #535af1;
+}
+.fix--space-left {
+  margin-left: calc(0.5rem);
+}
+.user__container--avatar {
+  height: 50px;
+  width: 50px;
+  position: relative;
+  .onlinestatus {
+    height: 10px;
+    width: 10px;
+
+    border: 2px solid #ffffff;
+    border-radius: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    &--color {
+      background-color: #686868;
+    }
+  }
+}
+
+.cursor__add{
+  cursor: pointer;
+}
+
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+animation
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+.rotate {
+  transform: rotate(-90deg);
+}
+
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+material design
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+.mat-expansion-panel-header {
+  padding: 0 1rem 0 24px;
+}
+.mat-expansion-panel-header-title {
+  margin-right: unset;
+}
+.mat-expansion-panel__content {
+  margin-left: 24px;
+  display: flex;
+  gap: 1.5rem;
+}
+.mat-expansion-panel:not([class*="mat-elevation-z"]) {
+  box-shadow: unset;
+}
+p {
+  margin: 0 0 0;
+}

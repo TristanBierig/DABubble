@@ -1,0 +1,68 @@
+<div class="dialog__container">
+  <div class="dialog__headline-container">
+    <div class="dialog__headline-wrapper">
+      <h2 class="dialog__headline">Leute hinzufügen</h2>
+      <mat-icon (click)="closeDialog()" class="dialog__headline-close"
+        >close</mat-icon
+      >
+    </div>
+    <div *ngIf="currentChannel" class="channel-name">
+      # {{ currentChannel.name }}
+    </div>
+  </div>
+
+  <div class="dialog__search-input-container">
+    <ng-container
+      [ngTemplateOutlet]="!userIsSelected ? input : selectedUserTemp"
+    ></ng-container>
+    <ng-template #input>
+      <input
+        #searchInput
+        class="dialog__search-input"
+        placeholder="Name eingeben"
+        (keyup)="searchService.searchForUser(searchInput.value)"
+        type="text"
+      />
+    </ng-template>
+    <ng-template #selectedUserTemp>
+      <div class="dialog__selected-user-container">
+        <div class="dialog__selected-user-wrapper">
+          <app-avatar-display
+            [data]="{ user: selectedUser, showStatus: true, size: 'xsmall' }"
+          ></app-avatar-display>
+          <p>{{ selectedUser.name }}</p>
+          <mat-icon (click)="cancelUser()">close</mat-icon>
+        </div>
+      </div>
+    </ng-template>
+    <div>
+      <div
+        *ngFor="let user of searchService.matchedUsers"
+        class="dialog__member-wrapper"
+        (click)="selectUser(user)"
+      >
+        <app-avatar-display
+          [data]="{ user: user, showStatus: true, size: 'xsmall' }"
+        ></app-avatar-display>
+        <p>{{ user.name }}</p>
+      </div>
+    </div>
+  </div>
+
+  <span *ngIf="showError" class="dialog__add-error-tooltip"
+    >Nutzer ist bereits in diesem Channel!</span
+  >
+
+  <button
+    mat-button
+    class="dialog__add-btn text-btn-flat"
+    [disabled]="(showError && userIsSelected) || !userIsSelected"
+    [ngClass]="userIsSelected && !showError ? 'enabled' : 'disabled'"
+    (click)="
+      searchService.addUserToChannel(selectedUser, currentChannel);
+      closeDialog()
+    "
+  >
+    Hinzufügen
+  </button>
+</div>

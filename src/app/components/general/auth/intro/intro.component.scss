@@ -1,0 +1,330 @@
+@import "../sign-in/sign-in.component.scss";
+
+:host {
+  height: 100%;
+  display: block;
+  background: var(--color-blue-bg);
+}
+
+ /*------------------------------------*\
+    Intro Animation
+ \*------------------------------------*/
+
+.block__intro {
+  background: linear-gradient(1deg, #313ae5 1.22%, #797ef3 98.76%);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  z-index: 100;
+
+  img {
+    z-index: 3;
+    box-sizing: border-box;
+    object-fit: cover;
+  }
+}
+
+.img-small {
+  height: 72px !important;
+}
+
+.block__intro-div {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.justify-content-start {
+  justify-content: start !important;
+}
+
+.position-unset {
+  position: unset !important;
+}
+
+.img-after-intro {
+  z-index: 10;
+  position: absolute;
+  top: 20px;
+  height: 72px;
+}
+
+.img-position-desktop {
+  left: 5%;
+  top: 5%;
+}
+
+.block__intro--change-bg {
+  background: var(--color-blue-bg) !important;
+}
+
+.block__headline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  position: absolute;
+}
+
+.position-desktop {
+  position: absolute;
+  left: 50px;
+}
+
+.width-unset {
+  width: unset !important;
+}
+
+ /*------------------------------------------*\
+    Animation Part 1.1: Logo moves to the left
+ \*------------------------------------------*/
+.img--move-left {
+  animation: LogoMoveLeft 500ms ease-in-out forwards;
+  z-index: 2;
+}
+
+.img--move-left-desktop {
+  animation: LogoMoveLeftDesktop 500ms ease-in-out forwards;
+  z-index: 2;
+}
+
+@keyframes LogoMoveLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-80px);
+  }
+}
+
+@keyframes LogoMoveLeftDesktop {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-170px);
+  }
+}
+
+ /*------------------------------------------------------*\
+    Animation Part 1.2: Div 'hide-box' moves to the left
+ \*------------------------------------------------------*/
+.hide-box {
+  height: 72px;
+  width: 230px;
+  position: absolute;
+  left: -102px;
+  z-index: 2;
+  background-color: #555cec;
+}
+
+.hide-box-desktop {
+  width: 308px !important;
+}
+
+.hide-box--move-left {
+  animation: HideBoxMoveLeft 500ms ease-in-out forwards;
+  z-index: 2;
+}
+
+.hide-box--move-left-desktop {
+  animation: HideBoxMoveLeftDesktop 500ms ease-in-out forwards;
+  z-index: 2;
+}
+
+@keyframes HideBoxMoveLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-136px);
+  }
+}
+
+@keyframes HideBoxMoveLeftDesktop {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-226px);
+  }
+}
+
+ /*---------------------------------------------*\
+    Animation Part 2: Headline moves to the right
+ \*---------------------------------------------*/
+.headline {
+  color: var(--color-white);
+  font-size: 1.8rem;
+  display: none;
+  position: absolute;
+  right: 100px;
+  z-index: 1;
+}
+
+.headline--move-right {
+  display: flex !important;
+  animation: HeadlineMoveRight 500ms ease-in-out forwards;
+}
+
+.headline--move-right-desktop {
+  display: flex !important;
+  animation: HeadlineMoveRightDesktop 500ms ease-in-out forwards;
+}
+
+.headline-desktop {
+  font-size: 4rem;
+  right: 80px !important;
+}
+
+.text-become-smaller-desktop {
+  font-size: 1.8rem;
+}
+
+@keyframes HeadlineMoveRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(180px);
+  }
+}
+
+@keyframes HeadlineMoveRightDesktop {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(260px);
+  }
+}
+
+ /*-----------------------------------------------------------------------------------------------------------------*\
+    Animation Part 3.1: Div 'block-headline' (logo+text) moves to the top(mobile) or to the top-left corner(desktop)
+ \*-----------------------------------------------------------------------------------------------------------------*/
+.animation-to-top-mobile {
+  animation: BlockHeadlineMoveTop 500ms ease-in-out forwards;
+}
+
+.animation-to-top-desktop {
+  animation: BlockHeadlineMoveTopDesktop 500ms ease-in-out forwards;
+}
+
+@keyframes BlockHeadlineMoveTop {
+  0% {
+    transform: translateY(-50%);
+    top: 50%;
+  }
+
+  100% {
+    transform: translateY(0%);
+    opacity: unset;
+    top: 3%;
+  }
+}
+
+@keyframes BlockHeadlineMoveTopDesktop {
+  0% {
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+  }
+
+  100% {
+    transform: translate(0%, 0%);
+    opacity: unset;
+    top: 5%;
+    left: 4%;
+  }
+}
+
+.hide-box--d-none {
+  display: none !important;
+}
+
+.headline--become-black {
+  color: var(--color-black) !important;
+}
+
+.headline--d-flex {
+  display: flex !important;
+  position: unset !important;
+  margin-left: 16px;
+}
+
+ /*----------------------------------------------------------------*\
+    Animation Part 3.2: Headline becomes smaller (for desktop view)
+ \*----------------------------------------------------------------*/
+.animate-smaller {
+  animation: AnimateLogoSmaller 500ms ease-in-out forwards;
+}
+
+@keyframes AnimateLogoSmaller {
+  0% {
+    height: 188px;
+    width: 188px;
+  }
+
+  50% {
+    height: 130px;
+    width: 130px;
+  }
+
+  100% {
+    height: 72px !important;
+    width: 72px;
+  }
+}
+
+.intro-create-account-desktop {
+  display: flex;
+  flex-direction: column;
+  top: 5%;
+  position: absolute;
+  right: 5%;
+  z-index: 100;
+  margin-top: 0 !important;
+
+  button {
+    border: 1px solid var(--color-blue-bg);
+
+    &:hover {
+      border: 1px solid var(--color-blue-primary-default);
+      border-radius: 25px;
+      background-color: unset;
+      color: var(--color-blue-primary-default);
+    }
+  }
+}
+
+ /*---------------------------------------------*\
+    Responsive for smaller devices
+ \*---------------------------------------------*/
+@media(max-width:1372px) {
+  .intro-create-account-desktop {
+    display: none;
+  }
+
+  .img-position-desktop {
+    left: unset;
+    top: 20px;
+  }
+}
+
+
+ /*---------------------------------------------*\
+    Responsive for bigger devices
+ \*---------------------------------------------*/
+@media(min-width: 2560px) {
+  .intro-create-account-desktop {
+    right: calc(100% - 2560px);
+  }
+
+  .img-position-desktop {
+    left: calc(100% - 2560px);
+  }
+}

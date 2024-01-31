@@ -1,0 +1,360 @@
+<section class="chat__container" *ngIf="chatRecord">
+  <div
+    *ngFor="let message of chatRecord; index as i"
+    class="message__wrapper"
+    [ngClass]="{}"
+  >
+    <!-- ========== Date Pill ========== -->
+    <div
+      *ngIf="
+        message.sentAt &&
+        (isFirstMsgOfDay(message, i) || i == 0) &&
+        parentType !== 'thread'
+      "
+      [style.margin-top]="message == chatRecord[0] ? '45px' : '0'"
+      class="chat__date-pill"
+    >
+      <div class="date-pill__line"></div>
+      <div
+        *ngIf="
+          (message.sentAt.toDate() | date : 'EEEE d MMMM') ==
+            (today | date : 'EEEE d MMMM');
+          then isToday;
+          else notToday
+        "
+      ></div>
+      <ng-template #isToday>
+        <span class="date-pill__content">Today</span></ng-template
+      >
+      <ng-template #notToday>
+        <span class="date-pill__content">
+          {{ message.sentAt.toDate() | date : "EEEE, d MMMM" }}
+        </span>
+      </ng-template>
+      <div class="date-pill__line"></div>
+    </div>
+
+    <!-- ========== Message itself ========== -->
+    <div
+      class="message"
+      *ngIf="currentUser"
+      [ngClass]="{
+        message__self: message.sentById === currentUser.id,
+        message__menuOpened: message === selectedMsg
+      }"
+      (click)="toggleMsgMenu(message)"
+      (mouseenter)="openMsgMenu(message)"
+      (mouseleave)="closeMsgMenu(message)"
+    >
+      <div class="message__avatar-container">
+        <img
+          referrerpolicy="no-referrer"
+          src="{{ message.sentByPhotoUrl }}"
+          alt=""
+        />
+      </div>
+
+      <div class="message__content-container">
+        <div class="message__header">
+          <span class="message__header-name">{{ message.sentByName }}</span>
+          <span *ngIf="message.sentAt" class="message__header-time"
+            >{{ message.sentAt.toDate() | date : "shortTime" }} Uhr</span
+          >
+        </div>
+
+        <div class="message__content-wrapper">
+          <!-- Display File if present -->
+          <div
+            *ngIf="
+              message.file.url && message.file.type !== 'application/pdf';
+              then isPicture;
+              else isPDF
+            "
+          ></div>
+          <ng-template #isPicture>
+            <img
+              (click)="loadFile(message.file.url)"
+              [src]="message.file.url"
+              alt="Picture send from a user"
+            />
+          </ng-template>
+          <ng-template #isPDF>
+            <div class="message__file-wrapper-pdf" *ngIf="message.file.type">
+              <img
+                (click)="loadFile(message.file.url)"
+                src="assets/img/pdf.png"
+                alt="Logo of PDF"
+              />
+              <span>{{ message.file.name }}</span>
+            </div>
+          </ng-template>
+          <ng-container
+            *ngIf="message.message; then msgText; else noMsgText"
+          ></ng-container>
+          <ng-template #msgText>
+            <p>{{ message.message }}</p>
+          </ng-template>
+          <ng-template #noMsgText>
+            <p *ngIf="!message.file.url">[[ Nachricht wurde gelöscht ]]</p>
+          </ng-template>
+        </div>
+
+        <!-- Message Footer -->
+        <div>
+          <!-- Reactions -->
+          <div
+            *ngIf="message.reactions"
+            class="message__footer-reaction-container"
+          >
+            <!-- Pill -->
+            <ng-container *ngFor="let reaction of message.reactions">
+              <span
+                class="message__reaction-pill"
+                *ngIf="reaction.user.length > 0"
+                (click)="
+                  stopPropagation($event);
+                  emojiService.addReaction(currentUser, chatRecordId, message, {
+                    emoji: { id: reaction.id, url: reaction.url }
+                  })
+                "
+              >
+                <div
+                  class="reaction__pill-wrapper"
+                  (mouseenter)="showReactionModal(reaction.id, message.id)"
+                  (mouseleave)="hideReactionModal(reaction.id, message.id)"
+                >
+                  <p class="reaction__emoji">{{ reaction.url }}</p>
+                  <span>{{ reaction.user.length }}</span>
+                </div>
+                <!-- Modal -->
+                <div
+                  [id]="reaction.id + message.id"
+                  class="reaction__detail-modal-container"
+                >
+                  <span>{{ reaction.url }}</span>
+                  <div>
+                    <span
+                      class="reaction__user-name"
+                      *ngFor="
+                        let name of reaction.user;
+                        let last = last;
+                        let i = index
+                      "
+                    >
+                      <p *ngIf="reaction.user.length > 1 && last">und</p>
+                      <span>
+                        {{ name.name
+                        }}<span
+                          *ngIf="
+                            reaction.user.length > 2 &&
+                            i < reaction.user.length - 2
+                          "
+                          >,</span
+                        >
+                      </span>
+                    </span>
+                  </div>
+                  <ng-container
+                    *ngIf="reaction.user.length > 1; then multi; else solo"
+                  ></ng-container>
+                  <ng-template #multi><span>haben reagiert</span></ng-template>
+                  <ng-template #solo><span>hat reagiert</span></ng-template>
+                </div>
+              </span>
+            </ng-container>
+          </div>
+
+          <!-- Thread Answers -->
+          <div *ngIf="message.thread.length > 0" class="message__footer">
+            <span
+              [customLink]="['thread', channelId, message.id]"
+              class="message__footer-count"
+              >{{ message.thread.length }} Antworten</span
+            >
+            <div class="message__footer-last-timestamp">
+              <span>Letzte Antwort</span>
+              <span *ngIf="message.thread.lastAnswer">
+                {{ message.thread.lastAnswer.toDate() | date : "shortTime" }}
+                Uhr</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Edit Msg Text container -->
+        <div
+          *ngIf="message === showEditMsgInput"
+          class="message__edit-msg__input-container"
+          (click)="stopPropagation($event)"
+        >
+          <div class="message__edit-msg__input-wrapper">
+            <div class="message_edit-msg_input">
+              <textarea
+                [(ngModel)]="editMsgPayload"
+                customAutofocus
+                name="editMsgInput"
+                matInput
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="2"
+              >
+              </textarea>
+            </div>
+            <div *ngIf="message.file.url" class="msg-edit__input--file-wrapper">
+              <ng-container
+                *ngIf="
+                  message.file.url && message.file.type !== 'application/pdf';
+                  then isPicture;
+                  else isPDF
+                "
+              ></ng-container>
+              <button
+                (click)="removeFileFromMsg(message)"
+                mat-flat-button
+                color="warn"
+              >
+                Delete File
+              </button>
+            </div>
+            <div class="message-input__btn-container">
+              <emoji-mart
+                *ngIf="emojiService.openEmojiPicker === 'Edit'"
+                class="emoji-picker-edit"
+                [darkMode]="false"
+                (emojiClick)="addEmoji($event)"
+                [perLine]="7"
+                [isNative]="true"
+                [virtualize]="true"
+                [emojiTooltip]="true"
+                [emoji]="''"
+              ></emoji-mart>
+
+              <button
+                (click)="emojiService.toggleEmojiPicker('Edit')"
+                mat-icon-button
+                class="btn__icon-wo-bg"
+                [ngClass]="
+                  emojiService.openEmojiPicker === 'Edit'
+                    ? 'btn__icon-wo-bg__focus'
+                    : ''
+                "
+                aria-label="Icon button to select emotes"
+              >
+                <mat-icon fontSet="material-icons-outlined"
+                  >sentiment_satisfied</mat-icon
+                >
+              </button>
+
+              <div class="btn-container__extra-btn-wrapper">
+                <ng-container
+                  *ngIf="rs.isMobile$ | async; then smallBtn; else bigBtn"
+                ></ng-container>
+                <ng-template #bigBtn>
+                  <button
+                    (click)="
+                      closeEditInput(message);
+                      emojiService.toggleEmojiPicker('Edit')
+                    "
+                    class="text-btn-stroked"
+                    mat-stroked-button
+                  >
+                    Abbrechen
+                  </button>
+                  <button
+                    (click)="saveEditMsg(message)"
+                    class="text-btn-flat"
+                    mat-flat-button
+                  >
+                    Speichern
+                  </button>
+                </ng-template>
+                <ng-template #smallBtn>
+                  <button
+                    (click)="closeEditInput(message)"
+                    class="text-btn-stroked"
+                    mat-stroked-button
+                  >
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                  <button
+                    (click)="saveEditMsg(message)"
+                    class="text-btn-flat"
+                    mat-flat-button
+                  >
+                    <mat-icon>save</mat-icon>
+                  </button>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+
+          <app-avatar-display
+            [data]="{ user: currentUser, showStatus: false, size: 'small' }"
+          ></app-avatar-display>
+        </div>
+      </div>
+
+      <!-- ========== Onclick/ onhover Menu ========== -->
+      <div *ngIf="selectedMsg === message" class="message__menu">
+        <button
+          (click)="
+            emojiService.toggleEmojiPicker('Reaction');
+            toggleReactionOnMsg(message)
+          "
+          [ngClass]="
+            emojiService.openEmojiPicker === 'Reaction'
+              ? 'btn__icon-wo-bg__focus'
+              : ''
+          "
+          mat-icon-button
+          aria-label="Icon button with a emoji add icon"
+        >
+          <mat-icon fontSet="material-icons-outlined">add_reaction</mat-icon>
+        </button>
+        <button
+          *ngIf="message.thread.length <= 0 && parentType === 'channel'"
+          (click)="this.startThread.emit(message)"
+          [customLink]="['thread', channelId, message.id]"
+          mat-icon-button
+          aria-label="Icon button with a chat bubble"
+        >
+          <mat-icon fontSet="material-icons-outlined">comment</mat-icon>
+        </button>
+        <button
+          *ngIf="message.sentById === currentUser.id"
+          mat-icon-button
+          (click)="openEditMsgMenu($event)"
+          aria-label="Icon button with vertical dots icon"
+        >
+          <mat-icon fontSet="material-icons-outlined">more_vert</mat-icon>
+        </button>
+        <div
+          *ngIf="showEditMsgMenu && message.sentById === currentUser.id"
+          class="message__menu--edit-msg"
+        >
+          <button (click)="editMsg(message)" mat-button>
+            Nachricht bearbeiten
+          </button>
+        </div>
+      </div>
+      <!-- Emoji Picker -->
+      <emoji-mart
+        *ngIf="
+          emojiService.openEmojiPicker === 'Reaction' &&
+          reactionPickerOnMsg == message
+        "
+        class="emoji-picker-reaction"
+        [darkMode]="false"
+        (emojiClick)="
+          emojiService.addReaction(currentUser, chatRecordId, message, $event)
+        "
+        [perLine]="7"
+        [isNative]="true"
+        [virtualize]="true"
+        [virtualizeOffset]="100"
+        [emojiTooltip]="true"
+        [emoji]="''"
+      ></emoji-mart>
+    </div>
+  </div>
+</section>

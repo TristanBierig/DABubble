@@ -1,0 +1,40 @@
+.mat-expansion-panel-header {
+  font-family: var(--font-selection) !important;
+}
+
+.mat-expansion-panel-content {
+  font-family: var(--font-selection) !important;
+}
+
+.mat-typography {
+  font-family: var(--font-selection) !important;
+  cursor: unset;
+}
+
+.mat-h1,
+.mat-headline-5,
+.mat-typography .mat-h1,
+.mat-typography .mat-headline-5,
+.mat-typography h1 {
+  font-family: var(--font-selection);
+}
+
+.mat-h2,
+.mat-headline-6,
+.mat-typography .mat-h2,
+.mat-typography .mat-headline-6,
+.mat-typography h2 {
+  font-family: var(--font-selection);
+}
+
+.mat-mdc-dialog-container {
+  font-family: var(--font-selection);
+}
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  border-top-left-radius: 30px !important;
+  border-top-right-radius: 30px !important;
+  border-bottom-right-radius: 30px !important;
+  border-bottom-left-radius: 30px !important;
+  box-shadow: 0 6px 10px 0 #00000033 !important;
+}

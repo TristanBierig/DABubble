@@ -1,0 +1,99 @@
+<!-- CHANNEL subheader -->
+<div
+  *ngIf="type === 'channel'"
+  [class.view__desktop-sub-header]="rs.isDesktop$ | async"
+  class="sub-header"
+>
+  <div
+    (click)="openChannelMenuDialog()"
+    *ngIf="channel"
+    class="sub-header__title channel__title"
+  >
+    <span class="title__main"
+      ># {{ channel.name }}
+      <mat-icon>expand_more</mat-icon>
+    </span>
+  </div>
+
+  <div class="subheader__icon-container">
+    <div
+      *ngIf="!isMobile"
+      class="subheader__avatar-container"
+      (click)="openMemberDialog()"
+    >
+      <div class="subheader__avatar-wrapper">
+        <span
+          class="avatar-xsmall avatar-wrapper_additional-user"
+          *ngIf="(fireService.channelMemberSubject | async)!.length > 5"
+          >+{{ (fireService.channelMemberSubject | async)!.length - 5 }}</span
+        >
+        <app-avatar-display
+          *ngFor="
+            let member of fireService.channelMemberSubject
+              | async
+              | slice : 0 : 5;
+            let i = index;
+            let first = first
+          "
+          [ngStyle]="!first ? { 'margin-right.px': -14, 'z-index': -i } : {}"
+          class="subheader__member-avatar"
+          [data]="{ user: member, showStatus: false, size: 'xsmall' }"
+        ></app-avatar-display>
+      </div>
+      <span class="member__counter">{{
+        (fireService.channelMemberSubject | async)!.length
+      }}</span>
+    </div>
+    <button
+      (click)="openAddMemberDialog()"
+      aria-label="Icon button with a person add icon"
+    >
+      <mat-icon fontSet="material-icons-outlined">person_add</mat-icon>
+    </button>
+  </div>
+</div>
+
+<!-- THREAD subheader -->
+<div
+  *ngIf="type === 'thread'"
+  [class.view__desktop-sub-header]="rs.isDesktop$ | async"
+  class="sub-header"
+>
+  <div *ngIf="channel" class="sub-header__title pointer">
+    <span class="title__main">Thread</span>
+    <span class="title__sub"># {{ channel.name }} </span>
+  </div>
+
+  <button
+    *ngIf="channel"
+    [customLink]="['channel', channel.id]"
+    (click)="navigateBack()"
+    class="button__close"
+  >
+    <mat-icon
+      *ngIf="channel"
+      fontSet="material-icons-outlined"
+      aria-label="Icon button with a person add icon"
+      [inline]="true"
+      >close</mat-icon
+    >
+  </button>
+</div>
+
+<!-- PRIVATE subheader -->
+<div
+  *ngIf="type === 'private'"
+  [class.view__desktop-sub-header]="rs.isDesktop$ | async"
+  class="sub-header"
+>
+  <div class="sub-header__title private-header">
+    <app-avatar-display
+      *ngIf="privateChatAvatarConfig"
+      [data]="privateChatAvatarConfig"
+    ></app-avatar-display>
+    <span *ngIf="privateChatOpponentUser" class="title__main"
+      >{{ privateChatOpponentUser.name }}
+      <span *ngIf="currentUser.id === privateChatOpponentUser.id">(Du)</span>
+    </span>
+  </div>
+</div>

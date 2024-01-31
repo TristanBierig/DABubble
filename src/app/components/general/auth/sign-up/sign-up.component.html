@@ -1,0 +1,82 @@
+<div class="block__sign-up">
+  <img [class.logo-desktop-position]="this.isDesktop" class="img-after-intro" src="assets/img/logo-text.png">
+
+  <mat-card>
+    <mat-card-content>
+      <form class="example-form" [formGroup]="signUpForm">
+        <div class="block__headline-info-box">
+          <div class="block__icon-arrow-back">
+            <mat-icon class="icon__arrow-back" routerLink="">arrow_back</mat-icon>
+          </div>
+          <span class="sign-in__headline">Konto erstellen</span>
+          <span class="sign-in__info-text">Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto.</span>
+        </div>
+
+        <div class="block__input">
+          <mat-icon class="material-icons-outlined mail-icon" [class.icon-color-black]="nameForm?.dirty || nameForm?.touched">person</mat-icon>
+          <input formControlName="nameForm" type="email" placeholder="Name und Nachname" #userName>
+        </div>
+        <div class="block__alert-name" *ngIf="nameForm?.invalid && (nameForm?.dirty || nameForm?.touched)">
+          <div *ngIf="nameForm?.errors?.['required']">*Bitte gib einen Vor- und Nachnamen ein.</div>
+          <div *ngIf="nameForm?.errors?.['pattern']">*Bitte verwende nur Buchstaben.</div>
+        </div>
+
+        <div class="block__input">
+          <mat-icon class="material-icons-outlined mail-icon" [class.icon-color-black]="emailForm?.dirty || emailForm?.touched">mail</mat-icon>
+          <input formControlName="emailForm" type="email" placeholder="beispielname@email.com" #userEmail (keyup)="this.firestoreService.checkSignUpEmail(userEmail.value)">
+        </div>
+        <div class="block__alert-email" *ngIf="emailForm?.invalid && emailForm?.touched">
+          <div *ngIf="emailForm?.errors?.['required']">*Bitte gib eine E-Mail-Adresse ein.</div>
+          <div *ngIf="emailForm?.errors?.['email']">*Diese E-Mail-Adresse ist leider ungültig.</div>
+          <div *ngIf="emailForm?.errors?.['pattern']">*E-Mail-Adresse enthält ungültige Zeichen.</div>
+          <div *ngIf="this.firestoreService.emailAlreadyExist"></div>
+        </div>
+
+        <div class="error-email-exist" *ngIf="this.firestoreService.emailAlreadyExist">
+          *E-Mail-Adresse existiert bereits.
+        </div>
+
+        <div class="block__input">
+          <mat-icon class="material-icons-outlined mail-icon" [class.icon-color-black]="passwordForm?.dirty || passwordForm?.touched">lock</mat-icon>
+          <input formControlName="passwordForm" type="password" placeholder="Passwort" #userPassword>
+        </div>
+        <div class="block__alert-password" *ngIf="passwordForm?.invalid && (passwordForm?.dirty || passwordForm?.touched)">
+          <div *ngIf="passwordForm?.errors?.['required']">*Bitte gib ein Passwort ein.</div>
+          <div *ngIf="passwordForm?.errors?.['minlength']">*Bitte verwende mindestens 8 Zeichen.</div>
+          <div *ngIf="passwordForm?.errors?.['pattern'] && !passwordForm?.errors?.['minlength']">*Mindestens eine Zahl und ein Großbuchstaben.</div>
+          <div *ngIf="passwordForm?.errors?.['requireUniqueCharacters'] && !passwordForm?.errors?.['minlength'] && !passwordForm?.errors?.['pattern'] ">*Mindestens 4 verschiedene Zeichen.</div>
+        </div>
+
+        <div class="block__input-checkbox">
+          <input type="checkbox" id="checkbox-data" required formControlName="checkboxForm" (click)="getCheckboxValue()">
+          <label for="checkbox-data">
+            <span>Ich stimme der&nbsp;<p routerLink="/privacy-policy">Datenschutzerklärung</p>&nbsp;zu.</span>
+          </label>
+        </div>
+
+        <div class="block__btn-box">
+          <button
+          class="btn__log-in"
+          (click)="this.authService.saveCurrentUserData(userName.value, userEmail.value, userPassword.value)"
+          [disabled]="signUpForm.invalid"
+          [class.btn-disabled]="signUpForm.invalid || this.firestoreService.emailAlreadyExist">Weiter
+          </button>
+        </div>
+
+        <div class="block__error" *ngIf="this.authService.signUpError">
+          *Bitte füllen Sie alle Felder korrekt aus.
+        </div>
+
+        <div class="block__error-checkbox" *ngIf="this.authService.dataError">
+          *Bitte stimmen Sie der Datenschutzerklärung zu.
+        </div>
+    </form>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="block__imprint-data">
+    <span routerLink="/imprint">Impressum</span>
+    <span routerLink="/privacy-policy">Datenschutz</span>
+  </div>
+
+</div>

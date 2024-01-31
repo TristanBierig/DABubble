@@ -1,0 +1,25 @@
+<div class="dialog__headline-container">
+  <h2 class="dialog__headline">Mitglieder</h2>
+  <mat-icon (click)="closeDialog()" class="dialog__headline-close"
+    >close</mat-icon
+  >
+</div>
+
+<div *ngIf="data" class="dialog__member-container">
+  <div *ngFor="let member of members" class="dialog__member-wrapper">
+    <app-avatar-display
+      [data]="{ user: member, showStatus: true, size: 'small' }"
+    ></app-avatar-display>
+    <p>{{ member.name }}</p>
+  </div>
+</div>
+
+<div class="dialog__add-member__container">
+  <div
+    (click)="closeDialog(); openAddMemberDialog()"
+    class="dialog__add-member__wrapper"
+  >
+    <mat-icon fontSet="material-icons-outlined">person_add</mat-icon>
+    <p>Mitglieder hinzufügen</p>
+  </div>
+</div>

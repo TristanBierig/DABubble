@@ -1,0 +1,134 @@
+@import 'src/app/style/_channel-dialogs.scss';
+
+.purple-text {
+    color: var(--color-blue-secondary-hover);
+}
+
+.mobile__member-container {
+    border: 1px solid var(--color-blue-border);
+    border-radius: 20px;
+}
+
+.mobile__member-wrapper {
+    max-height: 140px;
+    overflow-y: auto;
+}
+
+.dialog__container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    padding: 24px;
+    font-size: 1rem;
+}
+
+.dialog__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    span {
+        font-weight: bold;
+        font-size: 1.333rem;
+    }
+
+    mat-icon {
+        border-radius: 100%;
+        padding: 4px;
+        transition: 125ms ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+            color: var(--color-blue-primary-hover);
+            background-color: var(--color-blue-bg);
+        }
+    }
+}
+
+.box-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    border-radius: 20px;
+    border: 1px solid var(--color-blue-border);
+    padding: 20px;
+
+    transition: 125ms ease-in-out;
+}
+
+.box-header {
+    display: flex;
+    justify-content: space-between;
+
+    span:first-of-type {
+        font-weight: bold;
+    }
+
+    span:last-of-type {
+
+        &:hover {
+            font-weight: bold;
+            cursor: pointer;
+        }
+    }
+}
+
+.edit__btn-mobile {
+    padding: 4px;
+    border-radius: 100%;
+
+    transition: 125ms ease-in-out;
+
+    &:hover {
+        background-color: var(--color-blue-bg);
+
+    }
+}
+
+.box-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.description__content {
+    display: block;
+    min-height: 36px;
+}
+
+.created-by {
+    font-size: 1.333rem;
+}
+
+.action-btn-container {
+    align-self: flex-end;
+}
+
+.description__placeholder {
+    font-size: 0.889rem;
+    color: var(--color-grey-primary-overlay);
+}
+
+.open-edit {
+    border-color: rgba($color: #000000, $alpha: 0);
+}
+
+.name__input-wrapper {
+
+    span {
+        position: relative;
+        font-weight: bold;
+        margin-right: -20px;
+    }
+}
+
+.edit__input {
+
+    border: 1px solid var(--color-blue-border);
+    border-radius: 40px;
+    padding: 18px 24px;
+    font-size: 1rem;
+    outline: none;
+}

@@ -1,0 +1,51 @@
+<mat-expansion-panel
+  hideToggle
+  (opened)="panelOpenState = true"
+  (closed)="panelOpenState = false"
+>
+  <mat-expansion-panel-header>
+    <mat-panel-title class="container__element--spacebetween">
+      <div class="panel__titel--left" (click)="rotateArrow()">
+        <span
+          id="channel--arrow_drop_down"
+          class="material-icons-outlined rotate"
+          >arrow_drop_down</span
+        >
+
+        <div class="container__element--center">
+          <span class="material-icons-outlined"> workspaces </span>
+          <span class="panel__header--titel">Channels</span>
+        </div>
+      </div>
+
+      <span
+        [routerLink]="'/home/' + 'addChannel'"
+        class="material-icons-outlined element--blue"
+      >
+        add
+      </span>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div class="mat-expansion-panel__content container__elements--column">
+    <!-- 
+			elements for expansion-panel
+		-->
+    <div
+      *ngFor="let channel of memberInChannelsArray"
+      class="fix--space-left sort__elemts--row cursor__add"
+    >
+      <p [customLink]="['channel', channel.id]"># {{ channel.name }}</p>
+    </div>
+    <!-- 
+			add channel element
+		-->
+    <div
+      (click)="openDialogNewChannel()"
+      class="fix--space-left sort__elemts--row cursor__add"
+    >
+      <span class="material-icons-outlined element--blue"> add_circle </span>
+      <p class="element--blue">Channel hinzufügen</p>
+    </div>
+  </div>
+</mat-expansion-panel>

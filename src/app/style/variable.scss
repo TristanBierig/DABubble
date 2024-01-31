@@ -1,0 +1,179 @@
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+btn
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+@mixin btn{
+  width: fit-content;
+  padding: 12px 25px;
+  border-radius: 50px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+@mixin btn_primary{
+  @include btn;
+  color: var(--color-white);
+  background-color: var(--color-blue-primary-default);
+  border: 1px solid var(--color-blue-primary-default);
+  &:hover {
+    background-color: var(--color-blue-primary-hover);
+    border-color: var(--color-blue-primary-hover);
+  }
+  &:active {
+    background-color: var(--color-blue-primary-default);
+    border-color: var(--color-blue-primary-default);
+  }
+}
+
+@mixin btn_secondary{
+  @include btn;
+  color: var(--color-blue-primary-default);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-blue-primary-hover);
+      &:hover{
+          color: var(--color-white);
+          background-color: var(--color-blue-secondary-hover);
+          border-color: var(--color-blue-secondary-hover);
+      }
+      &:active{
+          color: var(--color-white);
+          background-color: var(--color-blue-primary-default);
+          border-color: var(--color-blue-primary-default);
+      }
+}
+
+@mixin btn-disabled {
+background-color: var(--color-grey-primary-disable);
+border-color: var(--color-grey-primary-disable);
+cursor: not-allowed;
+  &:hover {
+    background-color: var(--color-grey-primary-disable);
+    cursor: not-allowed;
+  }
+}
+
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+display
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+@mixin display_aCenter{
+display: flex;
+align-items: center;
+}
+
+@mixin display_center{
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+@mixin display_column{
+display: flex;
+flex-direction: column;
+}
+
+@mixin display_column_center{
+@include display_column;
+align-items: center;
+}
+
+@mixin display_column_start{
+@include display_column;
+justify-content: flex-start;
+align-items: flex-start;
+}
+
+@mixin display_column_end{
+@include display_column;
+justify-content: flex-end;
+align-items: flex-end;
+}
+
+@mixin display_between_center{
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+input
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+@mixin input_text{
+  padding: 15px 20px;
+  width: calc(100% - 2px - 40px);
+  border: 1px solid var(--color-blue-border);
+  border-radius: 30px;
+  &:focus{
+      outline: none;
+      border-color: var(--color-blue-primary-default);
+  }
+}
+
+@mixin input_radio{
+  -webkit-appearance: none;
+appearance: none;
+background-color: #fff;
+margin: 0;
+font: inherit;
+color: currentColor;
+width: 1.15em;
+height: 1.15em;
+border: 0.15em solid var(--color-blue-border);
+border-radius: 50%;
+transform: translateY(-0.075em);
+display: grid;
+place-content: center;
+&::before{
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--color-blue-primary-default);
+}
+&:checked::before{
+  transform: scale(1);
+}
+&:hover{
+  border-color: var(--color-blue-primary-default);
+  cursor: pointer;
+}
+}
+
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+overlay
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+@mixin overlay{
+background-color: var(--color-grey-primary-overlay);
+position: relative;
+top: 0;
+left: 0;
+width: 100dvw;
+height: 100dvh;
+}
+
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+navbar panels
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+@mixin panel_titel{
+@include display_aCenter;
+gap: 0.5rem;
+div {
+  @include display_aCenter;
+  gap: 0.5rem;
+}
+}
+
+@mixin panel_header{
+font-size: 1rem;
+font-weight: 700;
+}
+
+@mixin container-column{
+@include display_column;
+font-size: 1rem;
+font-weight: 400;
+}
+
+@mixin item_orientation-left{
+margin-left: calc(0.5rem);
+}

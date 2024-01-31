@@ -1,0 +1,110 @@
+<div class="main" [class.view__desktop-main]="rs.isDesktop$ | async">
+  <app-header-mobile
+    *ngIf="!(rs.isDesktop$ | async)"
+    [parent]="'chat'"
+  ></app-header-mobile>
+
+  <app-chat-sub-header
+    *ngIf="mainType"
+    [type]="mainType"
+    [channel]="currentChannel"
+    [privateChatOpponentUser]="privateChatOpponentUser"
+    [privateChatAvatarConfig]="{
+    user: this.privateChatOpponentUser,
+    showStatus: true,
+    size: 'small',
+  }"
+  ></app-chat-sub-header>
+
+  <main #chatContainer [scrollTop]="chatContainer.scrollHeight">
+    <app-chat-record
+      (startThread)="startThread($event)"
+      (chatRecordLength)="setChatRecordLength($event)"
+      [chatRecordId]="chatRecordId"
+      [currentUser]="currentUser"
+      [parentType]="mainType"
+    ></app-chat-record>
+  </main>
+  <!-- Placeholder for empty chat record -->
+  <div class="placeholder__container" *ngIf="chatRecordLength === 0">
+    <ng-container
+      *ngIf="privateChatOpponentUser || mainType === 'channel'"
+      [ngTemplateOutlet]="
+        mainType === 'channel'
+          ? channelPlaceholder
+          : mainType === 'private' &&
+            currentUser.id !== privateChatOpponentUser.id
+          ? privatePlaceholder
+          : privatePlaceholderSelf
+      "
+    >
+    </ng-container>
+    <!-- Channel placeholder -->
+    <ng-template #channelPlaceholder>
+      <div class="placeholder__title-wrapper">
+        <span class="placeholder__title--name">#</span>
+        <span class="placeholder__title--name">{{ currentChannel.name }}</span>
+      </div>
+      <p class="placeholder__description">
+        Dieser Channel wurde neu erstellt. Das ist der Anfang des Channels
+        <span class="placeholder__description--highlight"
+          ># {{ currentChannel.name }}</span
+        >.
+      </p>
+    </ng-template>
+
+    <!-- PrivateChat placeholder with another party -->
+    <ng-template #privatePlaceholder>
+      <div class="placeholder__title-wrapper">
+        <app-avatar-display
+          *ngIf="privateChatOpponentUser"
+          [data]=" {
+          user: this.privateChatOpponentUser,
+          showStatus: false,
+          size: 'medium',
+        }"
+        ></app-avatar-display>
+        <span class="placeholder__title--name">{{
+          privateChatOpponentUser.name
+        }}</span>
+      </div>
+      <p class="placeholder__description">
+        Diese Unterhaltung findet nur zwischen
+        <span class="placeholder__description--highlight"
+          >@{{ privateChatOpponentUser.name }}</span
+        >
+        und dir statt.
+      </p>
+    </ng-template>
+
+    <!-- PrivateChat placeholder for myself -->
+    <ng-template #privatePlaceholderSelf>
+      <div class="placeholder__title-wrapper">
+        <app-avatar-display
+          *ngIf="privateChatOpponentUser"
+          [data]=" {
+      user: this.privateChatOpponentUser,
+      showStatus: false,
+      size: 'medium',
+    }"
+        ></app-avatar-display>
+        <span class="placeholder__title--name"
+          >{{ privateChatOpponentUser.name }} (Du)</span
+        >
+      </div>
+      <p class="placeholder__description">
+        <strong>Dieser Raum ist nur für dich da.</strong>
+        Mache dir Notizen, liste deine To-dos auf oder bewahre Links und Dateien
+        griffbereit auf. Du kannst hier auch gerne Dinge mit dir selbst
+        besprechen.
+      </p>
+    </ng-template>
+  </div>
+
+  <app-message-input
+    *ngIf="currentChannel"
+    [currentChatRecordId]="currentChannel.chatRecord"
+    [channel]="currentChannel"
+    [privateChatOpponentUser]="privateChatOpponentUser"
+  ></app-message-input>
+</div>

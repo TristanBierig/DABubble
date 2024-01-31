@@ -1,0 +1,90 @@
+@import '../../../style/variable.scss';
+
+.overlay {
+  @include overlay;
+}
+
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+desktop / mobile
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+.dialog--desktop{
+  background-color: var(--color-white);
+  border-radius: 30px;
+  min-width: fit-content;
+  min-height: fit-content;
+  padding: 2rem 1rem;
+  position: absolute;
+  @include display_column_start;
+  gap: 1rem;
+}
+
+.dialog--mobile{
+    width: 100%;
+    min-height: calc(100dvh - 4rem);
+    background-color: var(--color-white);
+    padding: 2rem 1rem;
+    position: relative;
+    @include display_column_start;
+    gap: 1rem;
+}
+
+app-dialog-new-channel{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.dialog__newChannel--desktop{
+  @include display_center;
+}
+
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+content
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+header{
+    width: 100%;
+    @include display_between_center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    .close__element{
+      cursor: pointer;
+    }
+}
+.description{
+    margin-top: 1rem;
+}
+
+form{
+    width: 100%;
+    @include display_column;
+    .form__name{
+      @include display_column;
+      margin-bottom: 1rem;
+    }
+    .container__btn{
+        margin-top: 1rem;
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+input{
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+  @include input_text;
+}
+.sub-headline{
+    font-weight: 700;
+}
+
+.btn__submit{
+  @include btn_primary;
+}
+
+.btn-disabled {
+  @include btn-disabled;
+}
+
+.block__alert {
+  color: var(--color-purple-error);
+  font-size: 0.667rem;
+}

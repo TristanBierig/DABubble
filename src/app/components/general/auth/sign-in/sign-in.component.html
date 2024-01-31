@@ -1,0 +1,63 @@
+<mat-card [class.margin-desktop]="this.isDesktop">
+  <mat-card-content>
+    <form class="example-form" [formGroup]="signInForm">
+      <span class="sign-in__headline">Anmeldung</span>
+      <span class="sign-in__info-text">Wir empfehlen dir, die E-Mail Adresse zu nutzen, die du bei der Arbeit verwendest.</span>
+
+      <div class="block__input">
+        <mat-icon class="material-icons-outlined mail-icon" [class.icon-color-black]="emailForm?.dirty || emailForm?.touched">mail</mat-icon>
+        <input formControlName="emailForm" type="email" placeholder="beispielname@email.com" #userEmail>
+      </div>
+      <div class="block__alert-email" *ngIf="emailForm?.invalid && (emailForm?.touched)">
+        <div *ngIf="emailForm?.errors?.['required']">*Bitte gib eine E-Mail-Adresse ein.</div>
+        <div *ngIf="emailForm?.errors?.['email']">*Diese E-Mail-Adresse ist leider ungültig.</div>
+        <div *ngIf="emailForm?.errors?.['pattern']">*E-Mail-Adresse enthält ungültige Zeichen.</div>
+      </div>
+
+      <div class="block__input">
+        <mat-icon class="material-icons-outlined mail-icon" [class.icon-color-black]="passwordForm?.dirty || passwordForm?.touched">lock</mat-icon>
+        <input formControlName="passwordForm" type="password" placeholder="Passwort" #userPassword>
+      </div>
+      <div class="block__alert-password" *ngIf="passwordForm?.invalid && (passwordForm?.dirty || passwordForm?.touched)">
+        <div *ngIf="passwordForm?.errors?.['required']">*Bitte gib ein Passwort ein.</div>
+      </div>
+
+      <span class="sign-in__forgot-password" routerLink="/forgot-password">Passwort vergessen?</span>
+
+      <div class="block__or-google">
+        <hr>
+        <span>ODER</span>
+        <hr>
+      </div>
+
+      <div class="block__google-log-in" (click)="this.authService.googleAuthentication()">
+        <img src="assets/img/google-icon.png">
+        <span>Anmelden mit Google</span>
+      </div>
+
+      <div class="block__btn-box">
+        <button
+        class="btn__log-in"
+        (click)="this.authService.signIn(userEmail.value, userPassword.value, 'sign-in')"
+        [disabled]="signInForm.invalid || this.authService.signUpSuccessfully"
+        [class.btn-disabled]="signInForm.invalid"
+        >Anmelden</button>
+        <button class="btn__guest-log-in" (click)="this.authService.guestSignIn()">Gäste-Login</button>
+      </div>
+
+      <div class="block__error" *ngIf="this.authService.logInError">
+        *Log-in Daten sind unvollständig oder stimmen nicht überein.
+      </div>
+  </form>
+  </mat-card-content>
+</mat-card>
+
+<div [class.create-account-desktop]="this.isDesktop" class="block__create-account">
+  <span>Neu bei DABubble?</span>
+  <button routerLink="/sign-up">Konto erstellen</button>
+</div>
+
+<div *ngIf="this.isDesktop" class="block__imprint-data">
+  <span routerLink="/imprint">Impressum</span>
+  <span routerLink="/privacy-policy">Datenschutz</span>
+</div>

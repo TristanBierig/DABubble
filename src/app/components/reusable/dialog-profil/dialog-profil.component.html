@@ -1,0 +1,42 @@
+<main>
+    <header>
+        <h2> 
+            <span> Profil </span>  
+            <span (click)="onNoClick()" class="material-icons-outlined close__element"> close </span>
+        </h2>
+    </header>
+    
+    <div class="dialog__img">
+        <img class="dialog__img--style" src="{{ currentUser.photoUrl }}" alt="profil-avatar">
+    </div>
+    
+    <div class="dialog__content">
+        <div class="dialog__content--header">
+            <h1> {{ currentUser.name }} </h1>
+
+            <span (click)="openDialogProfilEdit()" class="material-icons-outlined"> edit </span>
+        </div>
+    
+        <div class="dialog__content--status">
+            <div class="container__status">
+                <span class="onlinestatus onlinestatus--color-{{ onlineStatus }}"></span>
+            </div>
+
+            <span *ngIf="onlineStatus"> Online </span>
+
+            <span *ngIf="onlineStatus === false"> Offline </span>
+        </div>
+    
+        <div class="dialog__content--email">
+            <span class="material-icons-outlined dialog__content--email-icon"> email </span>
+
+            <div class="container__email">
+                <span class="container__email--headline"> E-Mail-Adresse </span>
+                
+                <a 
+                class="container__email--data"
+                href= "mailto:{{ currentUser.email }}"> {{ currentUser.email }} </a>
+            </div>
+        </div>
+    </div>
+</main>

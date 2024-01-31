@@ -1,0 +1,28 @@
+:host {
+  display: flex;
+}
+
+.user__container--avatar {
+  position: relative;
+  display: flex;
+
+  .onlinestatus {
+    height: 14px;
+    width: 14px;
+
+    border: 2px solid var(--color-white);
+    border-radius: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+
+    &--color-false {
+      background-color: var(--color-grey-primary-disable);
+    }
+
+    &--color-true {
+      background-color: var(--color-green);
+    }
+  }
+}

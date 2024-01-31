@@ -1,0 +1,108 @@
+@import '../../../style/variable.scss';
+
+main{
+    max-height: calc(90dvh - 2rem);
+    overflow-y: auto;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+header{
+    h2{
+        margin: unset;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        span{
+            font-size: 1.4rem;
+        }
+    }
+}
+input{
+    margin-bottom: 0.25rem;
+    @include input_text;
+}
+
+.dialog__img{
+    display: flex;
+    justify-content: center;
+    &--style{
+        width: var(--sice-avatar_mobile);
+        height: var(--sice-avatar_mobile);
+        border-radius: 50%;
+    }
+}
+
+.dialog__content{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    &--name, &--email{
+        width: 100%;
+        // min-height: 110px;
+        display: flex;
+        flex-direction: column;
+        &-headline{
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            &-txt{
+                font-size: 1.2rem;
+                font-weight: 700;
+            }
+        }
+    }
+
+    &--input{
+        width: 100%;
+        margin-bottom: 0.25rem;
+    }
+}
+
+.dialog__btn{
+    // margin-top: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    &--cancel{
+        @include btn_secondary;
+    }
+    &--save{
+        @include btn_primary;
+    }
+}
+
+.close__element{
+    cursor: pointer;
+}
+
+.btn-disabled {
+    background-color: var(--color-grey-primary-disable);
+    cursor: not-allowed;
+  
+    &:hover {
+      background-color: var(--color-grey-primary-disable);
+      cursor: not-allowed;
+    }
+  }
+
+.block__alert {
+  color: var(--color-purple-error);
+  font-size: 0.667rem;
+}
+
+.btn-disabled {
+    background-color: var(--color-grey-primary-disable);
+    cursor: not-allowed;
+  
+    &:hover {
+      background-color: var(--color-grey-primary-disable);
+      cursor: not-allowed;
+    }
+  }

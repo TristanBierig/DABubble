@@ -1,0 +1,57 @@
+<div class="block__sign-up">
+  <img class="img-after-intro" src="assets/img/logo-text.png">
+
+  <mat-card>
+    <mat-card-content>
+        <div class="block__headline-info-box">
+          <div class="block__icon-arrow-back">
+            <mat-icon class="icon__arrow-back" routerLink="/sign-up">arrow_back</mat-icon>
+          </div>
+          <span class="sign-in__headline">Wähle deinen Avatar</span>
+        </div>
+
+        <img class="img__profile-choose-avatar" [class.img-border-color]="avatarIsChoosen" #unchoosenAvatar src="assets/img/avatars/guest-avatar.png">
+
+        <span class="text__name">{{ this.firestoreService.currentSignUpData.name }}</span>
+
+        <span class="text__choose-avatar">Aus der Liste wählen</span>
+
+        <div class="block__img-box">
+          <img (click)="chooseAvatar(1)" src="assets/img/avatars/avatar1.png">
+          <img (click)="chooseAvatar(2)" src="assets/img/avatars/avatar2.png">
+          <img (click)="chooseAvatar(3)" src="assets/img/avatars/avatar3.png">
+          <img (click)="chooseAvatar(4)" src="assets/img/avatars/avatar4.png">
+          <img (click)="chooseAvatar(5)" src="assets/img/avatars/avatar5.png">
+          <img (click)="chooseAvatar(6)" src="assets/img/avatars/avatar6.png">
+        </div>
+
+        <div class="block__upload-img">
+          <span>eigenes Bild verwenden</span>
+          <label class="btn__guest-log-in">
+            <input type="file" (change)="onFileChange($event)"/>
+            Datei hochladen
+        </label>
+        </div>
+
+
+        <div class="block__btn-box">
+          <button
+          class="btn__log-in"
+          (click)="prepareSignUp()"
+          [disabled]="this.authService.signUpSuccessfully"
+          >Weiter
+          </button>
+        </div>
+
+        <div class="block__error-sign-up" *ngIf="this.authService.errorUnexpected">
+          *Ein unerwarteter Fehler ist aufgetreten. Bitte
+          kehre zur vorherigen Seite zurück und führe den Registrierungsprozess noch einmal aus.
+        </div>
+
+        <div class="block__sign-up-successfull" [class.block__sign-up-successfull--move-left]="this.authService.signUpSuccessfully">
+          Konto erfolgreich erstellt!
+        </div>
+
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,155 @@
+@import "../sign-in/sign-in.component.scss";
+@import "../sign-up/sign-up.component.scss";
+@import "../choose-avatar/choose-avatar.component.scss";
+
+mat-card {
+  height: 597px !important;
+  margin: 30px 16px 0 16px !important;
+  width: calc(100% - 32px);
+}
+
+mat-card-content {
+  width: 98%;
+}
+
+.change-height {
+  height: 340px !important;
+  justify-content: center;
+}
+
+.block__btn-box {
+  justify-content: center !important;
+}
+
+.block__alert-name {
+  top: 263px !important;
+}
+
+.block__alert-email {
+  top: 330px !important;
+}
+
+.block__input-password {
+  position: relative;
+  width: 100%;
+}
+
+.block__alert-password {
+  top: 42px !important;
+}
+
+.block__google-log-in {
+  margin-top: 5px !important;
+  margin-bottom: 0 !important;
+  img {
+    height: 35px !important;
+  }
+}
+
+.email {
+  color: var(--color-blue-primary-hover);
+  margin: 0;
+  font-weight: 500;
+}
+
+.img-after-intro {
+  height: 60px !important;
+}
+
+.sign-in__info-text {
+  margin: 10px 0 20px 0;
+}
+
+
+ /*---------------------------------------------*\
+    Responsive for bigger devices
+ \*---------------------------------------------*/
+@media(min-width: 460px) {
+  mat-card {
+    height: 557px !important;
+  }
+}
+
+@media(min-width: 500px) {
+  form {
+    padding: 0 !important;
+  }
+
+  mat-card {
+    height: 562px;
+  }
+
+  mat-card-content {
+    width: 90%;
+  }
+
+  .block__alert-password {
+    left: 20px;
+    top: 45px !important;
+  }
+}
+
+@media(min-width: 600px) {
+  mat-card {
+    width: calc(90% - 32px);
+  }
+}
+
+@media(min-width: 700px) {
+  mat-card {
+    width: calc(70% - 32px);
+  }
+}
+
+@media(min-width: 800px) {
+  mat-card {
+    width: calc(60% - 32px);
+  }
+}
+
+@media(min-width: 900px) {
+  mat-card {
+    width: calc(55% - 32px);
+  }
+}
+
+@media(min-width: 1000px) {
+  mat-card {
+    width: 475px;
+  }
+}
+
+@media(min-width: 1370px) {
+  mat-card {
+    margin: 10% 16px 0 16px !important;
+  }
+}
+
+@media(min-width: 2560px) {
+  .img-after-intro {
+    left: calc(100% - 2560px);
+  }
+}
+
+ /*---------------------------------------------*\
+    Responsive for smaller devices
+ \*---------------------------------------------*/
+@media(max-width: 350px) {
+  .sign-in__info-text {
+    margin: 10px 0 10px 0;
+  }
+
+  .sign-in__forgot-password {
+    margin-bottom: 10px;
+  }
+
+  .block__input {
+    margin-bottom: 5px;
+  }
+}
+
+@media(max-width: 300px) {
+  .sign-in__forgot-password {
+    margin-bottom: 5px;
+  }
+}

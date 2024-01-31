@@ -1,0 +1,311 @@
+@import "../sign-in/sign-in.component.scss";
+
+:host {
+  height: 100%;
+  background-color: var(--color-blue-bg);
+}
+
+.block__sign-up {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--color-blue-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  img {
+    height: 72px;
+  }
+}
+
+.logo-desktop-position {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+}
+
+mat-card {
+  margin: 30px 16px 0 16px !important;
+  height: 431px !important;
+}
+
+.block__headline-info-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.block__icon-arrow-back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: -4px;
+  top: -6px;
+  border-radius: 50px;
+  padding: 5px;
+
+  &:hover {
+    background-color: var(--color-blue-bg);
+    cursor: pointer;
+  }
+}
+
+.icon__arrow-back {
+  color: var(--color-black) !important;
+}
+
+
+.block__btn-box {
+  justify-content: end !important;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.block__alert-name {
+  position: absolute;
+  top: 144px;
+  color: var(--color-purple-error);
+  font-size: 0.667rem;
+  left: 18px;
+}
+
+.block__alert-email {
+  top: 211px !important;
+}
+
+.block__alert-password {
+  top: 277px !important;
+}
+
+.block__error {
+  top: 378px !important;
+  left: 18px !important;
+}
+
+.block__error-checkbox {
+  position: absolute;
+  top: 315px;
+  color: var(--color-purple-error);
+  font-size: 0.667rem;
+  left: 18px;
+}
+
+.error-email-exist {
+  position: absolute;
+  top: 211px;
+  color: var(--color-purple-error);
+  font-size: 0.667rem;
+  left: 18px;
+}
+
+/*------------------------------------*\
+  Design for checkbox
+\*------------------------------------*/
+
+.block__input-checkbox {
+  display: flex;
+  align-items: center;
+  margin-left: 37px;
+  width: 100%;
+  font-size: 0.722rem;
+  margin-bottom: 13px;
+
+  input[type=checkbox] + label {
+    display: flex;
+
+  p {
+    color: var(--color-blue-primary-hover);
+
+    &:hover {
+      cursor: pointer;
+      color: var(--color-blue-primary-default);
+    }
+  }
+  }
+
+  input[type=checkbox] {
+    display: none;
+  }
+
+  input[type=checkbox] + label:before {
+    content: "\2714";
+    border: 0.1em solid var(--color-blue-primary-hover);
+    border-radius: 0.2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.1em 0.1em 0 0.1em;
+    margin-top: 1.5px;
+    margin-right: 5px;
+    width: 1em;
+    height: 1em;
+    vertical-align: bottom;
+    color: transparent;
+    transition: .1s;
+    cursor: pointer;
+  }
+
+
+  input[type=checkbox] + label:active:before {
+    transform: scale(0);
+  }
+
+  input[type=checkbox]:checked + label:before {
+    background-color: var(--color-white);
+    border-color: var(--color-blue-primary-hover);
+    color: var(--color-blue-primary-hover);
+  }
+
+  span {
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  /*------------------------------------*\
+    Design for checkbox END
+  \*------------------------------------*/
+}
+
+
+ /*---------------------------------------------*\
+    Responsive for smaller devices
+ \*---------------------------------------------*/
+@media(max-width: 400px) {
+  .block__alert-name {
+    top: 141px;
+  }
+
+  .block__alert-email {
+    top: 207px !important;
+  }
+
+  .error-email-exist {
+    top: 207px !important;
+  }
+
+  .block__alert-password {
+    top: 271px !important;
+  }
+
+  .block__error-checkbox {
+    top: 310px;
+  }
+}
+
+@media(max-width: 350px) {
+  .block__input-checkbox {
+    margin-left: 15px;
+  }
+
+  .block__error-checkbox {
+    left: 9px;
+  }
+}
+
+@media(max-width: 330px) {
+  .block__icon-arrow-back {
+    left: -12px;
+  }
+
+  .icon__arrow-back {
+    font-size:20px;
+    margin-top: 2px;
+    margin-left: 2px;
+  }
+
+  .block__imprint-data {
+    width: 180px;
+  }
+}
+
+@media(max-width: 320px) {
+  .block__alert-name {
+    top: 161px;
+  }
+
+  .block__alert-email {
+    top: 226px !important;
+  }
+
+  .error-email-exist {
+    top: 226px !important;
+  }
+
+  .block__alert-password {
+    top: 290px !important;
+  }
+
+  .block__error-checkbox {
+    top: 328px;
+  }
+}
+
+
+@media(max-width: 300px) {
+  .block__icon-arrow-back {
+    left: -13px;
+  }
+
+  .icon__arrow-back {
+    font-size:17px;
+    margin-top: 3px;
+  }
+
+  .block__input-checkbox {
+    font-size: 0.65rem;
+  }
+
+  .block__input-checkbox {
+    input[type=checkbox] + label:before {
+      margin-top: 2.5px;
+    }
+  }
+}
+
+
+ /*---------------------------------------------*\
+    Responsive for bigger devices
+ \*---------------------------------------------*/
+@media(min-width: 465px) {
+  .block__error {
+    margin-top: 0;
+  }
+}
+
+@media(min-width: 500px) {
+  .block__alert-name {
+    left: 52px;
+  }
+
+  .error-email-exist {
+    left: 52px;
+  }
+
+  .block__error-checkbox {
+    left: 52px;
+  }
+}
+
+@media(min-width: 1370px) {
+  .block__sign-up {
+    justify-content: start;
+  }
+
+  mat-card {
+    margin: 10% 16px 0 16px !important;
+  }
+}
+
+@media(min-width: 2560px) {
+  .logo-desktop-position {
+    left: calc(100% - 2560px);
+  }
+}

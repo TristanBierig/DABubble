@@ -1,0 +1,61 @@
+<mat-expansion-panel
+  hideToggle
+  (opened)="panelOpenState = true"
+  (closed)="panelOpenState = false"
+>
+  <mat-expansion-panel-header>
+    <mat-panel-title (click)="rotateArrow()">
+      <div class="panel__titel--left">
+        <span
+          id="directMessage--arrow_drop_down"
+          class="material-icons-outlined rotate"
+          >arrow_drop_down</span
+        >
+
+        <div class="container__element--center">
+          <span class="material-icons-outlined"> account_circle </span>
+          <span class="panel__header--titel">Direktnachrichten</span>
+        </div>
+      </div>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div class="mat-expansion-panel__content container__elements--column">
+    <!-- 
+			render user for expansion-panel 
+		-->
+    <div
+      *ngFor="let chat of sidebarService.privateChatsPanelDataSubject | async"
+      class="fix--space-left sort__elemts--row cursor__add"
+    >
+      <div
+        *ngIf="chat"
+        [customLink]="['private', chat.id]"
+        class="container__Elemets--row"
+      >
+        <app-avatar-display
+          [data]="{ user: chat.chatWith, showStatus: true, size: 'small' }"
+        ></app-avatar-display>
+
+        <p *ngIf="chat.chatWith && chat.chatWith.name">
+          {{ chat.chatWith.name }}
+          <span *ngIf="chat.id == currentUser.id">(Du)</span>
+        </p>
+      </div>
+    </div>
+    <!-- 
+			open dialog add user 
+		-->
+    <div
+      (click)="openDialogNewChat()"
+      class="fix--space-left sort__elemts--row cursor__add"
+    >
+      <div class="container--small">
+        <div class="circle__add--bg">
+          <span class="material-icons-outlined"> person_add </span>
+        </div>
+      </div>
+      <p>Leute hinzufügen</p>
+    </div>
+  </div>
+</mat-expansion-panel>

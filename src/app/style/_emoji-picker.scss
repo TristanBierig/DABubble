@@ -1,0 +1,21 @@
+.emoji-picker {
+    position: absolute;
+    transform: translateY(-100%);
+}
+
+.emoji-picker-edit {
+    position: absolute;
+    z-index: 3;
+    transform: translate(50%, 45%);
+
+    @media only screen and (max-width: 785px) {
+        transform: translate(5%, 55%);
+    }
+}
+
+.emoji-picker-reaction {
+    position: absolute;
+    left: 10%;
+    top: 36px;
+    z-index: 4;
+}

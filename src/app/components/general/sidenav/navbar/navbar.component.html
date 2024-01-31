@@ -1,0 +1,37 @@
+<app-header-mobile
+  *ngIf="!(rs.isDesktop$ | async)"
+  [parent]="'navbar'"
+></app-header-mobile>
+
+<main
+  *ngIf="dialogService.showNavbar$ | async"
+  [class.view__desktop-main]="rs.isDesktop$ | async"
+>
+  <app-navbar-searchbar
+    *ngIf="!(rs.isDesktop$ | async)"
+    [class.element__margin--bottom]="
+      (rs.isMobile$ | async) || (rs.isTablet$ | async)
+    "
+  ></app-navbar-searchbar>
+
+  <!-- Btn new message chat or channel -->
+  <!-- <button
+    *ngIf="!(rs.isDesktop$ | async)"
+    [routerLink]="'/home/' + 'newChat'"
+    mat-fab
+    color="primary"
+    aria-label="Example icon button with a delete icon"
+  >
+    <mat-icon> edit_square </mat-icon>
+  </button> -->
+
+  <div *ngIf="rs.isDesktop$ | async" class="workspace__title">
+    <img src="assets/img/workspace.png" alt="" />
+    <span>Code learning</span>
+  </div>
+
+  <article>
+    <app-navbar-panel-channels></app-navbar-panel-channels>
+    <app-navbar-panel-message></app-navbar-panel-message>
+  </article>
+</main>

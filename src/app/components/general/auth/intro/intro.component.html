@@ -1,0 +1,53 @@
+<div
+  [class.block__intro--change-bg]="animationToTop"
+  [class.block__intro]="!introIsDone"
+  [class.justify-content-start]="animationToTop"
+  [class.position-unset]="animationToTop || introIsDone && this.isDesktop"
+  class="block__intro-div"
+>
+  <div
+    *ngIf="!introIsDone"
+    [class.animation-to-top-mobile]="animationToTop && !this.isDesktop"
+    [class.animation-to-top-desktop]="animationToTop && this.isDesktop"
+    class="block__headline"
+  >
+    <img
+      [class.img--move-left]="animationToLeft && !animationToTop"
+      [class.img--move-left-desktop]="animationToLeft && !animationToTop && this.isDesktop"
+      [class.animate-smaller]="animationToTop && this.isDesktop"
+      [class.img-small]="!this.isDesktop"
+      src="assets/img/logo-intro.png"
+    />
+    <div
+      [class.hide-box--move-left]="animationToLeft"
+      [class.hide-box--move-left-desktop]="animationToLeft && this.isDesktop"
+      [class.hide-box--d-none]="animationToTop"
+      [class.hide-box-desktop]="this.isDesktop"
+      class="hide-box"
+    ></div>
+    <span
+      [class.headline--move-right]="animationToRight && !animationToTop"
+      [class.headline--move-right-desktop]="animationToRight && !animationToTop && this.isDesktop"
+      [class.headline--become-black]="animationToTop"
+      [class.headline--d-flex]="animationToTop"
+      [class.text-become-smaller-desktop]="animationToTop && this.isDesktop"
+      [class.headline-desktop]="this.isDesktop"
+      class="headline"
+      >DABubble</span
+    >
+  </div>
+
+  <img
+    *ngIf="introIsDone"
+    [class.img-position-desktop]="this.isDesktop && animationToTop || introIsDone"
+    class="img-after-intro"
+    src="assets/img/logo-text.png"
+  />
+
+  <app-sign-in *ngIf="animationToTop || introIsDone"></app-sign-in>
+
+  <div *ngIf="this.isDesktop && animationToTop || introIsDone" class="intro-create-account-desktop block__create-account">
+    <span>Neu bei DABubble?</span>
+    <button routerLink="/sign-up">Konto erstellen</button>
+  </div>
+</div>

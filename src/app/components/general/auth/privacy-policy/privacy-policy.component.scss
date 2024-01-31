@@ -1,0 +1,70 @@
+@import "../sign-in/sign-in.component.scss";
+@import "../sign-up/sign-up.component.scss";
+@import "../choose-avatar/choose-avatar.component.scss";
+@import "../imprint/imprint.component.scss";
+
+.block__headline {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  justify-content: center;
+}
+
+mat-card {
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: calc(100% - 16px);
+  padding: 15px 0 !important;
+}
+
+mat-card-content {
+  width: 90%;
+}
+
+.sign-in__headline {
+  margin-bottom: 20px;
+}
+
+.break-word {
+  word-break: break-all;
+}
+
+p {
+  width: 100%;
+}
+
+ul {
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+ /*---------------------------------------------*\
+    Responsive for bigger devices
+ \*---------------------------------------------*/
+@media (min-width: 500px) {
+  mat-card {
+    width: calc(100% - 32px);
+    min-height: 60%;
+  }
+}
+
+@media (min-width: 800px) {
+  mat-card {
+    width: calc(100% - 64px);
+  }
+}
+
+@media (min-width: 1200px) {
+  mat-card {
+    width: 1000px;
+    min-height: 75%;
+  }
+}
+
+@media (min-width: 1370px) {
+  mat-card {
+    margin-top: 10% !important;
+  }
+}

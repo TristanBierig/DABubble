@@ -1,0 +1,156 @@
+.sub-header {
+    display: flex;
+    justify-content: space-between;
+
+    background-color: var(--color-white);
+    box-shadow: var(--shadow-subheader);
+    padding: 10px 16px;
+
+    position: relative;
+    z-index: 1;
+
+    .private-header {
+        gap: 16px;
+    }
+
+    button {
+        height: 34px;
+        width: 34px;
+        padding: 8px;
+        border-radius: 50%;
+        background-color: var(--color-blue-bg);
+        border: none;
+        cursor: pointer;
+    }
+
+    mat-icon {
+        font-size: 1rem !important;
+        height: 18px;
+        width: 18px;
+    }
+}
+
+.button__close {
+    background-color: white !important;
+    cursor: pointer;
+
+    mat-icon {
+        font-size: 1.333rem !important;
+        height: 24px;
+        width: 24px;
+    }
+}
+
+.sub-header__title {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    width: fit-content;
+
+    border-radius: 30px;
+    padding: 8px;
+
+    font-size: 1.111rem;
+
+    .title__main {
+        color: var(--Black, #000);
+        font-size: 1.111rem;
+        font-family: var(--font-selection);
+        font-weight: 700;
+
+
+        mat-icon {
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.111rem;
+        }
+    }
+
+    .title__sub {
+        color: var(--color-blue-primary-hover);
+        font-size: 0.778rem;
+        margin-left: 5px;
+    }
+}
+
+.subheader__icon-container {
+    display: flex;
+    align-items: center;
+}
+
+.subheader__avatar-container {
+    transition: 225ms ease;
+
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 28px;
+
+    margin-right: 20px;
+    padding: 4px 6px;
+    border-radius: 36px;
+
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--color-blue-bg);
+
+        .member__counter {
+            font-weight: bold;
+            color: var(--color-blue-secondary-hover);
+        }
+    }
+}
+
+.subheader__avatar-wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    isolation: isolate;
+
+    app-avatar-display {
+        position: relative;
+        margin-inline: auto;
+    }
+}
+
+.member__counter {
+    transition: 225ms ease;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    margin-left: -20px;
+    font-size: 1.111rem;
+}
+
+.avatar-wrapper_additional-user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-blue-bg);
+    // Same px as in ngFor style
+    margin-left: -14px;
+    z-index: 2;
+}
+
+.channel__title {
+    cursor: pointer;
+    transition: 125ms ease-in-out;
+
+    &:hover {
+        background-color: var(--color-blue-bg);
+
+        .title__main {
+            color: var(--color-blue-primary-hover) !important;
+        }
+    }
+}
+
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+responsive
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+.view__desktop-sub-header {
+    border-radius: 30px 30px 0 0;
+}

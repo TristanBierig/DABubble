@@ -1,0 +1,132 @@
+<div class="message__input">
+  <emoji-mart
+    *ngIf="openEmojiPicker"
+    class="emoji-picker"
+    [darkMode]="false"
+    (emojiClick)="addEmoji($event)"
+    [perLine]="7"
+    [isNative]="true"
+    [emojiTooltip]="true"
+    [emoji]="''"
+  ></emoji-mart>
+
+  <!-- Msg Input -->
+  <textarea
+    [(ngModel)]="msgPayload"
+    name="msgInput"
+    #msgInput
+    id="msgInput"
+    type="text"
+    placeholder="{{ placeholderText }}"
+  ></textarea>
+
+  <!-- File Preview -->
+  <div class="file-upload__container">
+    <div
+      [ngClass]="fileToUpload ? 'd-block' : 'd-none'"
+      class="file-upload__wrapper"
+    >
+      <button
+        (click)="cancelUpload()"
+        mat-mini-fab
+        color="warn"
+        class="file-upload__cancel-btn"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+      <img
+        src=""
+        id="filePreview"
+        [ngClass]="fileToUpload ? 'file-upload__thumbnail' : ''"
+        alt=""
+      />
+    </div>
+    <span class="file-upload__file-name">{{ fileName }}</span>
+  </div>
+
+  <!-- Button row menu -->
+  <div class="message-input__btn-container">
+    <div class="btn-container__extra-btn-wrapper">
+      <!-- Upload -->
+      <button
+        (click)="openFileUpload()"
+        mat-icon-button
+        class="btn__icon-wo-bg"
+        aria-label="Icon button to add data files to the message"
+      >
+        <input
+          type="file"
+          accept="image/*,.pdf"
+          id="fileUpload"
+          (change)="onFileChange($event)"
+        />
+        <mat-icon fontSet="material-icons-outlined">add</mat-icon>
+      </button>
+
+      <mat-divider [vertical]="true"></mat-divider>
+
+      <!-- Emoji -->
+      <button
+        (click)="toggleEmojiPicker()"
+        mat-icon-button
+        class="btn__icon-wo-bg"
+        [ngClass]="openEmojiPicker ? 'active-btn' : ''"
+        aria-label="Icon button to select emotes"
+      >
+        <mat-icon fontSet="material-icons-outlined"
+          >sentiment_satisfied</mat-icon
+        >
+      </button>
+      <!-- @-Link -->
+      <button
+        mat-icon-button
+        aria-label="Icon button to link another user"
+        class="btn__icon-wo-bg"
+        [ngClass]="showPopupModal ? 'active-btn' : ''"
+        (click)="toggleSearchModal()"
+      >
+        <mat-icon fontSet="material-icons-outlined">alternate_email</mat-icon>
+      </button>
+
+      <div class="relative">
+        <!-- Popup Modal for Search -->
+        <div *ngIf="showPopupModal" class="message__link-popup-container">
+          <div class="popup__wrapper">
+            <div
+              *ngFor="let user of searchService.matchedUsers"
+              class="message__popup-found-wrapper"
+              (click)="selectUser(user)"
+            >
+              <app-avatar-display
+                [data]="{ user: user, showStatus: true, size: 'xsmall' }"
+              ></app-avatar-display>
+              <p>{{ user.name }}</p>
+            </div>
+          </div>
+
+          <input
+            #searchInput
+            class="message__popup-input"
+            placeholder="Name eingeben"
+            (keyup)="searchService.searchForUser(searchInput.value)"
+            type="text"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Send Button -->
+    <div>
+      <button
+        (click)="sendMessage()"
+        mat-icon-button
+        class="btn__icon-wo-bg"
+        aria-label="Icon button to send the message"
+      >
+        <mat-icon class="message-input__send-btn" fontSet="material-icons"
+          >send</mat-icon
+        >
+      </button>
+    </div>
+  </div>
+</div>

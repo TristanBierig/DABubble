@@ -1,0 +1,35 @@
+<div 
+class="overlay"
+(click)="closeDialogMenuWithAnimation()"
+*ngIf="dialogService.showDialogProfilMenu$ | async"
+></div>
+
+
+<div 
+[class.dialog__desktop]="(dialogService.showDialogProfilMenu$ | async) && (rs.isDesktop$ | async)" 
+[class.dialog__mobile]="(rs.isMobile$ | async) || (rs.isTablet$) && !(rs.isDesktop$ | async)" 
+[class.slide--up]="!showCloseAnimation && (dialogService.showDialogProfilMenu$ | async) && ((rs.isMobile$ | async) || (rs.isTablet$ | async))"
+[class.slide--down]="showCloseAnimation && ((rs.isMobile$ | async)  || (rs.isTablet$ | async))"
+>
+
+    <div 
+    *ngIf="(rs.isMobile$ | async) || (rs.isTablet$ | async)" 
+    (click)="closeDialogMenuWithAnimation()" 
+    class="orientation">
+        <div>
+            <span></span>
+        </div>
+    </div>
+
+    <button (click)="openDialogProfil()" class="btn__select">
+        <span class="material-icons-outlined"> account_circle </span>
+
+        <span class="button__txt"> Profil </span>
+    </button>
+
+    <button (click)="logout()" class="btn__select">
+        <span class="material-icons-outlined"> logout </span>
+        
+        <span class="button__txt"> Ausloggen </span>
+    </button>
+</div>

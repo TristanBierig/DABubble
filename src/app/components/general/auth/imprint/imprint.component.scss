@@ -1,0 +1,77 @@
+@import "../sign-in/sign-in.component.scss";
+@import "../sign-up/sign-up.component.scss";
+@import "../choose-avatar/choose-avatar.component.scss";
+
+.block__sign-up {
+  height: 100%;
+}
+
+mat-card {
+  width: calc(100% - 32px);
+  height: 510px !important;
+}
+
+.sign-in__headline {
+  margin-bottom: 10px;
+}
+
+.block__imprint-data {
+  width: unset;
+  margin: 15px 0;
+}
+
+.color-blue {
+  color: var(--color-blue-primary-default);
+}
+
+h3 {
+  font-size: 1.2rem;
+}
+
+h4 {
+  font-size: 1.1rem;
+  margin: 0 0 10px;
+}
+
+p {
+  font-size: 0.9rem;
+  margin: 0 0 20px 0;
+}
+
+a {
+  color: var(--color-blue-primary-default);
+  text-decoration: none;
+}
+
+
+ /*------------------------------------*\
+    Responsive for bigger devices
+ \*------------------------------------*/
+@media(min-width: 350px) {
+  p {
+    margin: 0 0 30px 0;
+  }
+}
+@media(min-width: 400px) {
+  mat-card {
+    width: calc(90% - 32px);
+  }
+}
+
+@media(min-width: 600px) {
+  mat-card {
+    width: calc(80% - 32px);
+  }
+}
+
+@media(min-width: 800px) {
+  mat-card {
+    width: calc(70% - 32px);
+  }
+}
+
+@media(min-width: 900px) {
+  mat-card {
+    width: 550px;
+  }
+}

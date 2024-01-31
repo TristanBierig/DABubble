@@ -1,0 +1,39 @@
+@import 'src/app/style/_chat.scss';
+
+.main{
+    display: flex;
+    flex-direction: column;
+    height: 100svh;
+    background-color: var(--color-white);
+}
+
+.leading-msg {
+    margin: 0;
+}
+
+.thread__separator-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 16px 0 16px;
+
+    span {
+        color: var(--color-blue-border);
+        white-space: nowrap;
+    }
+}
+
+.thread__separator-line {
+    height: 1px;
+    width: 100%;
+    background-color: var(--color-blue-border);
+}
+
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+responsive
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+.view__desktop-main{
+    margin: 1rem 1rem 1rem 0;
+    border-radius: 30px;
+    height: calc(100svh - 80px - 2rem);
+}

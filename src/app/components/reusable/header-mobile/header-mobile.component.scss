@@ -1,0 +1,42 @@
+app-navbar-searchbar{
+    width: 50dvw;
+    max-width: 500px;
+    margin: 0 2rem;
+}
+header {
+    padding: 0 1rem;
+    min-height: 80px;
+    background-color: var(--color-blue-bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header__profil{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    h1{
+        font-size: 1.8rem;
+        font-weight: 700;
+        white-space: nowrap;
+        margin: unset;
+        text-align: center;
+    }   
+}
+
+.logo__container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+
+    img {
+        height: 50px;
+    }
+
+    span {
+        font-size: 1rem;
+        font-weight: bold;
+    }
+}

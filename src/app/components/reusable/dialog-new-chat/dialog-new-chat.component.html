@@ -1,0 +1,107 @@
+<div 
+class="overlay" 
+(click)="closeDialogNewChat()"
+*ngIf="dialogService.showDialogNewChat$ | async"
+></div>
+
+<div 
+[class.dialog__desktop]="(rs.isDesktop$ | async)" 
+[class.dialog__mobile]="((rs.isMobile$|async) || (rs.isTablet$|async))" 
+[class.slide--up]="!showCloseAnimation && (dialogService.showDialogNewChat$ | async) && ((rs.isMobile$ | async) || (rs.isTablet$ | async))"
+[class.slide--down]="showCloseAnimation && ((rs.isMobile$ | async) || (rs.isTablet$ | async))"
+>
+	<!-- 
+		mobile dialog bar
+	 -->
+    <div 
+    (click)="closeDialogNewChat()"
+    *ngIf="(rs.isMobile$ | async) || (rs.isTablet$|async)"
+    class="orientation"
+    >
+        <div>
+            <span></span>
+        </div>
+    </div>
+	<!-- 
+		dialog header
+	 -->
+    <div class="container__header" [class.element__margin--bottom]="(rs.isDesktop$|async)">
+        <span>Leute hinzufügen</span>
+        <span 
+        (click)="closeDialogNewChat()" 
+        class="material-icons-outlined close__element"
+        *ngIf="(rs.isDesktop$ | async)"
+        > close </span>
+    </div>
+	<!-- 
+		dialog form
+	 -->
+    <form class="search-user-form">
+        <div class="container__search">
+            <div class="input__label">
+                <input 
+                id="searchbar-newChat"
+                #searchbarUser
+                (click)="removeUser()"
+                (keyup)="searchForUser()"
+                type="text" 
+                placeholder="Name eingeben">
+
+                <label 
+                *ngIf="this.isAlreadyInChat"
+                for="searchbarUser" 
+                class="block__alert">
+                *Direktnachricht mit User bereits angefangen
+                </label>
+
+                <!-- 
+                    selected user into input
+                -->
+                <div 
+                *ngFor="let user of this.selectedUser"
+                class="container__user-Elements--selected" 
+                >
+                    <img class="avatar-icon" src="{{ user.photoUrl}}" alt="avatar">
+
+                    <p>{{ user.name }}</p>
+
+                    <span class="material-icons-outlined close__element"
+                    (click)="removeUser()"
+                    *ngIf="user != this.currentUser">
+                        close 
+                    </span>
+                </div>
+            </div>
+
+            <!-- 
+                render filtered User into container under input
+            -->
+            <div id="filtered-user" 
+            class="container__filteredUser"
+            *ngIf="this.filteredUser.length >= 1"
+            >
+                <div 
+                *ngFor="let user of this.filteredUser"
+                class="container__user-Elements" 
+                (click)="selectUser(user)"
+                >
+                    <div class="container__user-Elements--avatar">
+                        <img class="avatar-small" src="{{ user.photoUrl}}" alt="avatar">
+						
+                        <span class="onlinestatus onlinestatus--color-{{ user.onlineStatus }}"></span>
+                    </div>
+
+                    <p>{{ user.name }}</p>
+                </div>
+            </div>
+        </div>
+
+        <button 
+        class="btn__submit"
+        (click)="submitNewChat()"
+        [disabled]="this.userSelected"
+        [class.btn-disabled]="this.userSelected">
+            Hinzufügen
+        </button>
+    </form>
+</div>
