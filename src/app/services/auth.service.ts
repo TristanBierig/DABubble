@@ -67,7 +67,7 @@ export class AuthService {
   }
 
   guestSignIn() {
-    this.signIn('guest@mail.com', 'Gast1234', 'Gast');
+    this.signIn('gast@online.de', 'Gast1234', 'Gast');
     this.redirectToLandingPage();
   }
 
