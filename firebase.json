@@ -1,7 +1,7 @@
 {
   "hosting": [
     {
-      "target": "DABubble",
+      "target": "DA-Bubble-NEW",
       "source": ".",
       "frameworksBackend": {}
     }

@@ -31,7 +31,7 @@ export class AuthService {
   googleAccount = false;
   isLoggedInForMerging = false;
   public isLoggedIn = new BehaviorSubject<boolean>(false);
-  private defaultChannel: string = '3ZNVPzTSepCzgFNVsxUS';
+  private defaultChannel: string = '0DruK46uIvLXXb2LPykA';
 
   constructor(
     public router: Router,
@@ -67,7 +67,7 @@ export class AuthService {
   }
 
   guestSignIn() {
-    this.signIn('guest@mail.com', 'guest_User123', 'guest');
+    this.signIn('guest@mail.com', 'Gast1234', 'Gast');
     this.redirectToLandingPage();
   }
 

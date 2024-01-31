@@ -84,6 +84,8 @@ export class FirestoreService {
   //create chat
   newChatRefId: string = '';
 
+  defaultChannelId: string = '0DruK46uIvLXXb2LPykA';
+
   constructor(
     private chatService: ChatService,
     private storageService: StorageService
@@ -403,7 +405,7 @@ export class FirestoreService {
   }
 
   getDefaultChannel() {
-    return doc(collection(this.firestore, 'channels'), '3ZNVPzTSepCzgFNVsxUS');
+    return doc(collection(this.firestore, 'channels'), this.defaultChannelId);
   }
 
   async updateChannelMember(id: string) {

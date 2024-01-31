@@ -1,14 +1,14 @@
 {
   "targets": {
-    "dabubble-185ec": {
+    "da-bubble-new": {
       "hosting": {
         "DABubble": [
-          "dabubble-185ec"
+          "da-bubble-new"
         ]
       }
     }
   },
   "projects": {
-    "default": "dabubble-185ec"
+    "default": "da-bubble-new"
   }
 }
